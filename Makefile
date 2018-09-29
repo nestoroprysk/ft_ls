@@ -4,11 +4,11 @@ CC = gcc
 FLAGS = -Wall -Wextra -Werror -I $(INC_DIR) -I $(LIB_INC_DIR)
 
 INC_DIR = Includes/
-INC_NAME = display_files.h
+INC_NAME = display_files.h display_file_type.h
 INC = $(addprefix $(INC_DIR), $(INC_NAME))
 
 SRC_DIR = Sources/
-SRC_NAME = main.c display_files.c
+SRC_NAME = main.c display_files.c display_file_type.c
 
 OBJ_DIR = Objects/
 OBJ_NAME = $(SRC_NAME:.c=.o)

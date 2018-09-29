@@ -4,7 +4,12 @@
 - Test strjoin ===DONE===
 - Write the program to list all the files in a hardcoded directory ===DONE===
 - get file's data ===DONE===
-- parse data
-- think on the structure of the project from the perspective of parsing data on files (global struct which is filled by different parsers may be appropriate)
+
+- parse data ===IN PROGRESS===
+
+- parse flags
+
+- display and dinding files should be separated
 - implement -R behaviour
+
 - implement a buffer for optimized write() calls
