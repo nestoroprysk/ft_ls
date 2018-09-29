@@ -1,6 +1,7 @@
-- Create Makefile for the main program DONE
-- Create Makefile for the LogicLib DONE
-- Configure the main project with the LogicLib DONE
-- Test strjoin DONE
+- Create Makefile for the main program ===DONE===
+- Create Makefile for the LogicLib ===DONE===
+- Configure the main project with the LogicLib ===DONE===
+- Test strjoin ===DONE===
+- Write the program to list all the files in a hardcoded directory ===DONE===
 
-- Write the program to list all the files in a hardcoded directory ===UP NEXT===
+- implement -R behaviour ===IN PROGRESS===
