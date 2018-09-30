@@ -17,17 +17,10 @@ t_flags parse_flags(int argc, const char** argv)
 	char* flags = "lRart";
 	size_t nb_flags = 5;
 	for (int i = 1; i < argc; i++)
-	{
 		if (ft_strlen(argv[i]) > 1 && argv[i][0] == '-')
-		{
 			for (size_t j = 0; j < nb_flags; ++j)
-			{
-				char* cp = ft_strchr(argv[i], flags[j]);
-				if (cp)
+				if (ft_strchr(argv[i], flags[j]))
 					turn_on_flag_func_array[j](&result);
-			}
-		}
-	}
 	return result;
 }
 
