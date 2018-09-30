@@ -1,20 +1,20 @@
-NAME = libft.a
+NAME = liblogic.a
 
-CC = gcc
-FLAGS = -Wall -Wextra -Werror -I $(INC_DIR)
+FLAGS = -Wall -Werror -Wextra -I $(INC_DIR) -I $(LIBFT_INC_DIR)
 
 INC_DIR = Includes/
-INC_NAME = library.h
+INC_NAME = liblogic.h
 INC = $(addprefix $(INC_DIR), $(INC_NAME))
 
 SRC_DIR = Sources/
-SRC_NAME = ft_strlen.c ft_strnew.c
-
-OBJ_NAME = $(SRC_NAME:.c=.o)
+SRC_NAME = parse_files_to_display.c parse_flags.c
 
 OBJ_DIR = Objects/
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_NAME))
+
+LIBFT_DIR = ../Libft/
+LIBFT_INC_DIR = $(LIBFT_DIR)/Includes/
 
 all: $(NAME)
 
@@ -34,4 +34,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: re all clean fclean
+.PHONY: all clean fclean re

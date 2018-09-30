@@ -1,18 +1,18 @@
-NAME = ft_ls
+NAME = tests
 
-CC = gcc
-FLAGS = -Wall -Wextra -Werror -I $(LIB_LOGIC_INC_DIR)
+CC = clang++
+FLAGS = -std=c++17 -Wall -Wextra -Werror -I $(LIB_LOGIC_INC_DIR)
 
-LIB_LOGIC_DIR = Liblogic/
+LIB_LOGIC_DIR = ../Liblogic/
 LIB_LOGIC_INC_DIR = $(LIB_LOGIC_DIR)/Includes/
 
-LIB_FT_DIR = Libft/
+LIB_FT_DIR = ../Libft/
 
-SRC_NAME = main.c
+SRC_NAME = flags.cpp
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(SRC_NAME)
 	make -C $(LIB_FT_DIR)
 	make -C $(LIB_LOGIC_DIR)
 	$(CC) -o $(NAME) $(SRC_NAME) $(FLAGS) -L $(LIB_LOGIC_DIR) -llogic -L $(LIB_FT_DIR) -lft
