@@ -3,7 +3,6 @@
 #include <stdio.h>
 
 typedef void (*t_turn_on_func)(t_flags* flags);
-bool is_flag_argv(const char* str);
 bool is_valid_flag(const char* str);
 void turn_on_l(t_flags* flags);
 void turn_on_R(t_flags* flags);
