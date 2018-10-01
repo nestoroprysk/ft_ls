@@ -4,9 +4,12 @@
 - Test strjoin ===DONE===
 - Write the program to list all the files in a hardcoded directory ===DONE===
 - get file's data ===DONE===
-- parse flags ===IN PROGRESS===
-- handle illegal actions
-- parse data
-- display and dinding files should be separated
+- parse flags ===DONE===
+- handle illegal flags ===DONE===
+- parse data on file type ===IN PROGRESS===
+- display and finding files should be separated
 - implement -R behaviour
 - implement a buffer for optimized write() calls
+
+- fill_file_info flags may become a pointer
+- save path to file

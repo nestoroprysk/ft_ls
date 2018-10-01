@@ -1,6 +1,7 @@
 #include <liblogic.h>
 #include <libft.h>
 #include <stdio.h>
+#include <assert.h>
 
 typedef void (*t_turn_on_func)(t_flags* flags);
 bool is_valid_flag(const char* str);
@@ -34,11 +35,13 @@ t_flags parse_flags(int argc, const char** argv)
 
 bool is_flag_argv(const char* str)
 {
+	assert(str);
 	return ft_strlen(str) > 1 && str[0] == '-';
 }
 
 bool is_valid_flag(const char* str)
 {
+	assert(str);
 	size_t len = ft_strlen(str);
 	for (size_t i = 1; i < len; ++i)
 		if (!ft_strchr(FLAGS_STR, str[i]))
@@ -48,25 +51,30 @@ bool is_valid_flag(const char* str)
 
 void turn_on_l(t_flags* flags)
 {
+	assert(flags);
 	flags->l = true;
 }
 
 void turn_on_R(t_flags* flags)
 {
+	assert(flags);
 	flags->R = true;
 }
 
 void turn_on_a(t_flags* flags)
 {
+	assert(flags);
 	flags->a = true;
 }
 
 void turn_on_r(t_flags* flags)
 {
+	assert(flags);
 	flags->r = true;
 }
 
 void turn_on_t(t_flags* flags)
 {
+	assert(flags);
 	flags->t = true;
 }
