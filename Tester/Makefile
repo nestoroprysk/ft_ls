@@ -15,10 +15,12 @@ DEPS =  $(LIB_LOGIC_DIR)/Sources/*.c $(LIB_LOGIC_INC_DIR)/*.h\
 
 CATCH_HEADER = catch.hpp
 
+CATCH_LINK = 'https://github.com/catchorg/Catch2/releases/download/v2.4.1/catch.hpp'
+
 all: | $(CATCH_HEADER)
 
 $(CATCH_HEADER):
-	sh .download_catch_hpp.sh
+	curl -o $(CATCH_HEADER) -L $(CATCH_LINK)
 
 all: $(NAME)
 
