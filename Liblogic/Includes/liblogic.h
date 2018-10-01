@@ -6,6 +6,8 @@
 
 #define NB_FLAGS 5
 
+#define FLAGS_STR "lRart"
+
 typedef struct s_flags
 {
 	bool l;
@@ -26,5 +28,6 @@ typedef struct s_file
 	struct s_file* next;
 } t_file;
 
+bool valid_flags(int argc, const char** argv);
 t_file* parse_files_to_display(int argc, const char** argv);
 t_flags parse_flags(int argc, const char** argv);
