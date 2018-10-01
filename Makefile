@@ -10,9 +10,12 @@ LIB_FT_DIR = Libft/
 
 SRC_NAME = main.c
 
+DEPS =  $(LIB_LOGIC_DIR)/Sources/*.c $(LIB_LOGIC_INC_DIR)/*.h\
+		$(LIB_FT_DIR)/Sources/*.c $(LIB_FT_DIR)/Includes/*.h
+
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(SRC_NAME) $(DEPS)
 	make -C $(LIB_FT_DIR)
 	make -C $(LIB_LOGIC_DIR)
 	$(CC) -o $(NAME) $(SRC_NAME) $(FLAGS) -L $(LIB_LOGIC_DIR) -llogic -L $(LIB_FT_DIR) -lft
