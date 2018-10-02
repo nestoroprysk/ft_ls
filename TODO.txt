@@ -6,10 +6,14 @@
 - get file's data ===DONE===
 - parse flags ===DONE===
 - handle illegal flags ===DONE===
-- parse data on file type ===IN PROGRESS===
-- display and finding files should be separated
-- implement -R behaviour
-- implement a buffer for optimized write() calls
 
+- implement -R behaviour ===IN PROGRESS===
+
+- parse data on file type
+- display and finding files should be separated
+- implement a buffer for optimized write() calls
 - fill_file_info flags may become a pointer
 - save path to file
+- pointer to tail
+- effective -R
+- try using more pure functions

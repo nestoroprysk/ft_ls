@@ -8,7 +8,7 @@
 
 #define FLAGS_STR "lRart"
 
-#define NB_FILE_TYPES 3
+#define NB_FILE_TYPES 2
 
 enum file_type { dir_file_type, reg_file_file_type, other_file_type };
 
@@ -38,10 +38,14 @@ struct stat;
 
 bool valid_flags(int argc, const char** argv);
 t_file_node* parse_files_to_display(int argc, const char** argv);
+bool valid_files(t_file_node* files);
 t_flags parse_flags(int argc, const char** argv);
-void fill_file_info(t_file_node* file, t_flags* flags);
 void display_file_info(t_file_node* file, t_flags* flags);
+
 void pop_front_file(t_file_node** head);
+void append_file_node(t_file_node** head_ptr, const char* file_name);
+t_file_node* new_file_node(const char* file_name);
+t_file_node* get_last_file_node(t_file_node* head);
 
 bool is_flag_argv(const char* str);
-void fill_file_type(t_file_node* file, struct stat* s);
+enum file_type define_file_type(const char* file_name);
