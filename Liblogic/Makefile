@@ -18,13 +18,17 @@ OBJ = $(addprefix $(OBJ_DIR), $(OBJ_NAME))
 LIBFT_DIR = ../Libft/
 LIBFT_INC_DIR = $(LIBFT_DIR)/Includes/
 
+all: | $(OBJ_DIR)
+
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INC)
-	mkdir -p $(OBJ_DIR)
 	$(CC) $(FLAGS) -o $@ -c $< 
 
 clean:
