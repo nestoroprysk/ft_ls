@@ -1,16 +1,8 @@
 #include <liblogic.h>
 #include <libft.h>
-#include <assert.h>
 #include <stdlib.h>
-
-void pop_front_file(t_file_list* files_ptr)
-{
-	assert(files_ptr && files_ptr->head);
-	t_file_node* temp = files_ptr->head;
-	files_ptr->head = temp->next;
-	free(temp);
-	--files_ptr->len;
-}
+#include <dirent.h>
+#include <assert.h>
 
 void append_file_node(t_file_list* files_ptr, t_file_node* newNode)
 {
@@ -28,22 +20,55 @@ void append_file_node(t_file_list* files_ptr, t_file_node* newNode)
 	++files_ptr->len;
 }
 
-t_file_node* new_file_node(const char* file_name)
+t_file_node* new_file_node(const char* file_name, const char* path)
 {
 	assert(file_name);
-	t_file_node* result = (t_file_node*)ft_memalloc(sizeof(t_file_node));
-	size_t file_name_len = ft_strlen(file_name);
-	assert(file_name_len <= MAX_FILE_NAME_LEN);
-	ft_strncpy(result->info.name, file_name, file_name_len + 1);
-	result->info.type = define_file_type(file_name);
+	t_file_node* result =
+		(t_file_node*)ft_memalloc(sizeof(t_file_node));
+	assert(ft_strlen(file_name) <= MAX_FILE_NAME_LEN);
+	ft_strcpy(result->info.name, file_name);
+	assert(ft_strlen(path) < MAX_PATH_LEN);
+	ft_strcpy(result->info.path, path);
+	result->info.type = define_file_type(path, file_name);
 	result->info.is_valid = true;
 	return result;
 }
 
 bool valid_files(t_file_list* files_ptr)
 {
+	assert(files_ptr);
 	for (t_file_node* it = files_ptr->head; it; it = it->next)
 		if (!it->info.is_valid)
 			return false;
 	return true;
+}
+
+char* create_path(const char* a, const char* b);
+
+t_file_list* add_dir_content(const t_file_node* dir_file)
+{
+	assert(dir_file);
+	DIR* dir_ptr = opendir(dir_file->info.name);
+	assert(dir_ptr);
+	struct dirent* dir_info;
+	t_file_list* dir_files =
+		(t_file_list*)ft_memalloc(sizeof(t_file_list));
+	while ((dir_info = readdir(dir_ptr)) != NULL)
+	{
+		char* path = create_path(dir_file->info.path,
+			dir_file->info.name);
+		append_file_node(dir_files,
+			new_file_node(dir_info->d_name, path));
+		free(path);
+	}
+	closedir(dir_ptr);
+	return dir_files;
+}
+
+char* create_path(const char* a, const char* b)
+{
+	char* temp = ft_strjoin(a, b);
+	char* result = ft_strjoin(temp, "/");
+	free(temp);
+	return result;
 }

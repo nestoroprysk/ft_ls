@@ -1,7 +1,5 @@
 #include <liblogic.h>
 #include <libft.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <assert.h>
 
 bool is_valid_flag(const char* str);

@@ -9,7 +9,7 @@ INC = $(addprefix $(INC_DIR), $(INC_NAME))
 SRC_DIR = Sources/
 SRC_NAME =  parse_files.c parse_flags.c\
 			display_file_info.c define_file_type.c\
-			manipulate_file_list.c
+			manipulate_file_list.c display_file_list.c
 
 OBJ_DIR = Objects/
 OBJ_NAME = $(SRC_NAME:.c=.o)

@@ -1,11 +1,10 @@
 #include <liblogic.h>
 #include <libft.h>
-#include <assert.h>
 #include <stdio.h>
+#include <assert.h>
 
-void display_file_info(t_file_node* file, t_flags* flags)
+void display_file_info(t_file_node* file)
 {
 	assert(file);
-	assert(flags);
-	printf("%s %i\n", file->info.name, file->info.type);
+	printf("{%s} (%s) <%i>\n", file->info.path, file->info.name, file->info.type);
 }
