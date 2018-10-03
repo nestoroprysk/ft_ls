@@ -17,3 +17,6 @@
 - pointer to tail
 - effective -R
 - try using more pure functions
+- make files_left inline
+- consider ft_memalloc while allocating flags
+

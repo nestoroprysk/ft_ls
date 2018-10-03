@@ -1,6 +1,7 @@
 #include <liblogic.h>
 #include <libft.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 
 typedef void (*t_turn_on_func)(t_flags* flags);
@@ -20,16 +21,21 @@ bool valid_flags(int argc, const char** argv)
 	return true;
 }
 
-t_flags parse_flags(int argc, const char** argv)
+t_flags* parse_flags(int argc, const char** argv)
 {
 	t_turn_on_func turn_on_flag_func_array[NB_FLAGS] =
 		{turn_on_l,turn_on_R,turn_on_a,turn_on_r,turn_on_t};
-	t_flags result = {false,false,false,false,false};
+	t_flags* result = (t_flags*)malloc(sizeof(t_flags));
+	result->l = false;
+	result->R = false;
+	result->a = false;
+	result->r = false;
+	result->t = false;
 	for (int i = 1; i < argc; i++)
 		if (is_flag_argv(argv[i]))
 			for (size_t j = 0; j < NB_FLAGS; ++j)
 				if (ft_strchr(argv[i], FLAGS_STR[j]))
-					turn_on_flag_func_array[j](&result);
+					turn_on_flag_func_array[j](result);
 	return result;
 }
 

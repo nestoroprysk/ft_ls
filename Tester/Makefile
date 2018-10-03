@@ -1,7 +1,7 @@
 NAME = tests
 
 CC = clang++
-FLAGS = -std=c++17 -Wall -Wextra -Werror -I $(LIB_LOGIC_INC_DIR)
+FLAGS = -std=c++14 -Wall -Wextra -Werror -I $(LIB_LOGIC_INC_DIR)
 
 LIB_LOGIC_DIR = ../Liblogic/
 LIB_LOGIC_INC_DIR = $(LIB_LOGIC_DIR)/Includes/

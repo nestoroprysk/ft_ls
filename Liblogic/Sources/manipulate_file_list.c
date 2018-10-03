@@ -3,11 +3,11 @@
 #include <assert.h>
 #include <stdlib.h>
 
-void pop_front_file(t_file_node** head)
+void pop_front_file(t_file_list* files_ptr)
 {
-	assert(head && *head);
-	t_file_node* temp = *head;
-	*head = temp->next;
+	assert(files_ptr && files_ptr->head);
+	t_file_node* temp = files_ptr->head;
+	files_ptr->head = temp->next;
 	free(temp);
 }
 
@@ -41,4 +41,17 @@ t_file_node* get_last_file_node(t_file_node* head)
 	while (it && it->next)
 		it = it->next;
 	return it;
+}
+
+bool files_left(t_file_list* files_ptr)
+{
+	return files_ptr->head;
+}
+
+bool valid_files(t_file_list* files_ptr)
+{
+	for (t_file_node* it = files_ptr->head; it; it = it->next)
+		if (!it->info.is_valid)
+			return false;
+	return true;
 }
