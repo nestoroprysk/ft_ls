@@ -19,4 +19,4 @@
 - try using more pure functions
 - make files_left inline
 - consider ft_meft_memalloc while allocating flags
-
+- test define_file_type

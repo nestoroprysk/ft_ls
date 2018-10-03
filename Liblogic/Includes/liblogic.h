@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdbool.h>
+#include <stddef.h>
 
 #define MAX_FILE_NAME_LEN 255
 
@@ -38,6 +39,7 @@ typedef struct s_file_list
 {
 	t_file_node* head;
 	t_file_node* last;
+	size_t len;
 } t_file_list;
 
 bool valid_flags(int argc, const char** argv);
@@ -47,10 +49,8 @@ t_flags* parse_flags(int argc, const char** argv);
 void display_file_info(t_file_node* file, t_flags* flags);
 
 void pop_front_file(t_file_list* files_ptr);
-void append_file_node(t_file_node** head_ptr, const char* file_name);
+void append_file_node(t_file_list* files_ptr, t_file_node* newNode);
 t_file_node* new_file_node(const char* file_name);
-t_file_node* get_last_file_node(t_file_node* head);
-bool files_left(t_file_list* files_ptr);
 
 bool is_flag_argv(const char* str);
 enum file_type define_file_type(const char* file_name);
