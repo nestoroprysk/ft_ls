@@ -18,5 +18,5 @@
 - effective -R
 - try using more pure functions
 - make files_left inline
-- consider ft_memalloc while allocating flags
+- consider ft_meft_memalloc while allocating flags
 

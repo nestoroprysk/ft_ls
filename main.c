@@ -5,7 +5,7 @@ int main(int argc, const char** argv)
 {
 	assert(valid_flags(argc, argv));
 	t_flags* flags = parse_flags(argc, argv);
-	t_file_list* files = parse_files_to_display(argc, argv);
+	t_file_list* files = parse_files(argc, argv);
 	assert(files && valid_files(files));
 	while (files_left(files))
 	{

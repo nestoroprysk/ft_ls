@@ -12,11 +12,11 @@ TEST_CASE("Basic strange tests", "[valid and invalid flags]")
 		const char* argv[argc] = {"./a.out", "-llllll"};
 		REQUIRE(valid_flags(argc, argv) == true);
 		t_flags* flags = parse_flags(argc, argv);
-		REQUIRE(flags->l == true);
-		REQUIRE(flags->R == false);
-		REQUIRE(flags->a == false);
-		REQUIRE(flags->r == false);
-		REQUIRE(flags->t == false);
+		REQUIRE(flags->flag[flag_l] == true);
+		REQUIRE(flags->flag[flag_R] == false);
+		REQUIRE(flags->flag[flag_a] == false);
+		REQUIRE(flags->flag[flag_r] == false);
+		REQUIRE(flags->flag[flag_t] == false);
 		free(flags);
 	}
 	{
@@ -24,11 +24,11 @@ TEST_CASE("Basic strange tests", "[valid and invalid flags]")
 		const char* argv[argc] = {"./a.out", "-lRartlrRRlR"};
 		REQUIRE(valid_flags(argc, argv) == true);
 		t_flags* flags = parse_flags(argc, argv);
-		REQUIRE(flags->l == true);
-		REQUIRE(flags->R == true);
-		REQUIRE(flags->a == true);
-		REQUIRE(flags->r == true);
-		REQUIRE(flags->t == true);
+		REQUIRE(flags->flag[flag_l] == true);
+		REQUIRE(flags->flag[flag_R] == true);
+		REQUIRE(flags->flag[flag_a] == true);
+		REQUIRE(flags->flag[flag_r] == true);
+		REQUIRE(flags->flag[flag_t] == true);
 		free(flags);
 	}
 	{
@@ -41,11 +41,11 @@ TEST_CASE("Basic strange tests", "[valid and invalid flags]")
 		const char* argv[argc] = {"./a.out", "-lRartlrRRlR", "-lRartlrRRlR"};
 		REQUIRE(valid_flags(argc, argv) == true);
 		t_flags* flags = parse_flags(argc, argv);
-		REQUIRE(flags->l == true);
-		REQUIRE(flags->R == true);
-		REQUIRE(flags->a == true);
-		REQUIRE(flags->r == true);
-		REQUIRE(flags->t == true);
+		REQUIRE(flags->flag[flag_l] == true);
+		REQUIRE(flags->flag[flag_R] == true);
+		REQUIRE(flags->flag[flag_a] == true);
+		REQUIRE(flags->flag[flag_r] == true);
+		REQUIRE(flags->flag[flag_t] == true);
 		free(flags);
 	}
 	{

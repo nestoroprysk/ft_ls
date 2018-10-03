@@ -4,13 +4,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-typedef void (*t_turn_on_func)(t_flags* flags);
 bool is_valid_flag(const char* str);
-void turn_on_l(t_flags* flags);
-void turn_on_R(t_flags* flags);
-void turn_on_a(t_flags* flags);
-void turn_on_r(t_flags* flags);
-void turn_on_t(t_flags* flags);
 
 bool valid_flags(int argc, const char** argv)
 {
@@ -23,19 +17,12 @@ bool valid_flags(int argc, const char** argv)
 
 t_flags* parse_flags(int argc, const char** argv)
 {
-	t_turn_on_func turn_on_flag_func_array[NB_FLAGS] =
-		{turn_on_l,turn_on_R,turn_on_a,turn_on_r,turn_on_t};
-	t_flags* result = (t_flags*)malloc(sizeof(t_flags));
-	result->l = false;
-	result->R = false;
-	result->a = false;
-	result->r = false;
-	result->t = false;
+	t_flags* result = (t_flags*)ft_memalloc(sizeof(t_flags));
 	for (int i = 1; i < argc; i++)
 		if (is_flag_argv(argv[i]))
 			for (size_t j = 0; j < NB_FLAGS; ++j)
 				if (ft_strchr(argv[i], FLAGS_STR[j]))
-					turn_on_flag_func_array[j](result);
+					result->flag[j] = true;
 	return result;
 }
 
@@ -55,32 +42,3 @@ bool is_valid_flag(const char* str)
 	return true;
 }
 
-void turn_on_l(t_flags* flags)
-{
-	assert(flags);
-	flags->l = true;
-}
-
-void turn_on_R(t_flags* flags)
-{
-	assert(flags);
-	flags->R = true;
-}
-
-void turn_on_a(t_flags* flags)
-{
-	assert(flags);
-	flags->a = true;
-}
-
-void turn_on_r(t_flags* flags)
-{
-	assert(flags);
-	flags->r = true;
-}
-
-void turn_on_t(t_flags* flags)
-{
-	assert(flags);
-	flags->t = true;
-}

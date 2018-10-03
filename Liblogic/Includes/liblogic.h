@@ -8,17 +8,17 @@
 
 #define FLAGS_STR "lRart"
 
+#define NB_FLAG_TYPES 5
+
 #define NB_FILE_TYPES 2
+
+enum flag_type { flag_l, flag_R, flag_a, flag_r, flag_t };
 
 enum file_type { dir_file_type, reg_file_file_type, other_file_type };
 
 typedef struct s_flags
 {
-	bool l;
-	bool R;
-	bool a;
-	bool r;
-	bool t;
+	bool flag[NB_FLAG_TYPES];
 } t_flags;
 
 typedef struct s_file_info
@@ -41,7 +41,7 @@ typedef struct s_file_list
 } t_file_list;
 
 bool valid_flags(int argc, const char** argv);
-t_file_list* parse_files_to_display(int argc, const char** argv);
+t_file_list* parse_files(int argc, const char** argv);
 bool valid_files(t_file_list* files_ptr);
 t_flags* parse_flags(int argc, const char** argv);
 void display_file_info(t_file_node* file, t_flags* flags);

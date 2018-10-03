@@ -24,7 +24,7 @@ void append_file_node(t_file_node** head_ptr, const char* file_name)
 t_file_node* new_file_node(const char* file_name)
 {
 	assert(file_name);
-	t_file_node* result = (t_file_node*)malloc(sizeof(t_file_node));
+	t_file_node* result = (t_file_node*)ft_memalloc(sizeof(t_file_node));
 	result->next = NULL;
 	size_t file_name_len = ft_strlen(file_name);
 	assert(file_name_len <= MAX_FILE_NAME_LEN);
