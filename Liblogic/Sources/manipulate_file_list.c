@@ -15,6 +15,7 @@ void append_file_node(t_file_list* files_ptr, t_file_node* newNode)
 	else
 	{
 		files_ptr->last->next = newNode;
+		newNode->prev = files_ptr->last;
 		files_ptr->last = newNode;
 	}
 	++files_ptr->len;
@@ -56,6 +57,7 @@ t_file_list* add_dir_content(const t_file_node* dir_file)
 		(t_file_list*)ft_memalloc(sizeof(t_file_list));
 	while ((dir_info = readdir(dir_ptr)) != NULL)
 	{
+		if (dir_info->d_name[0] == '.') continue;
 		char* path = create_path(dir_file->info.path,
 			dir_file->info.name);
 		append_file_node(dir_files,
@@ -63,9 +65,7 @@ t_file_list* add_dir_content(const t_file_node* dir_file)
 		free(path);
 	}
 	closedir(dir_ptr);
-	for (t_file_node* it = dir_files->head; it; it = it->next)
-		if (it->info.type == dir_file_type && it->info.name[0] != '.')
-			it->nested_file_list = add_dir_content(it);
+	sort_file_list(dir_files);
 	return dir_files;
 }
 

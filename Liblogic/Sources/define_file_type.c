@@ -16,7 +16,6 @@ static is_file_type_func is_file_type[NB_FILE_TYPES] =
 
 enum file_type define_file_type(const char* path, const char* file_name)
 {
-	
 	assert(path && file_name);
 	char* str = ft_strjoin(path, file_name);
 	struct stat file_info;
