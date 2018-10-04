@@ -48,7 +48,8 @@ char* create_path(const char* a, const char* b);
 t_file_list* add_dir_content(const t_file_node* dir_file)
 {
 	assert(dir_file);
-	DIR* dir_ptr = opendir(dir_file->info.name);
+	DIR* dir_ptr = opendir(
+		create_path(dir_file->info.path, dir_file->info.name));
 	assert(dir_ptr);
 	struct dirent* dir_info;
 	t_file_list* dir_files =
@@ -62,6 +63,9 @@ t_file_list* add_dir_content(const t_file_node* dir_file)
 		free(path);
 	}
 	closedir(dir_ptr);
+	for (t_file_node* it = dir_files->head; it; it = it->next)
+		if (it->info.type == dir_file_type && it->info.name[0] != '.')
+			it->nested_file_list = add_dir_content(it);
 	return dir_files;
 }
 
