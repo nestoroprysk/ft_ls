@@ -8,8 +8,9 @@ extern "C"
 using t_file_node_ptr = t_file_node*;
 
 t_file_node* create_node(const char* name, t_file_node* prev, t_file_node* next);
-bool asBefore(t_file_node_ptr a, t_file_node_ptr b, t_file_node_ptr c,
+bool asBefore5(t_file_node_ptr a, t_file_node_ptr b, t_file_node_ptr c,
 	t_file_node_ptr d, t_file_node_ptr e);
+bool asBefore2(t_file_node_ptr a, t_file_node_ptr b);
 
 const char* a_name = "1";
 const char* b_name = "2";
@@ -17,7 +18,7 @@ const char* c_name = "3";
 const char* d_name = "4";
 const char* e_name = "5";
 
-TEST_CASE("Swap nodes", "[sort]")
+TEST_CASE("Swap nodes in 5 element list", "[sort]")
 {
 	t_file_node_ptr a, b, c, d, e;
 	a = create_node(a_name, NULL, NULL);
@@ -33,41 +34,41 @@ TEST_CASE("Swap nodes", "[sort]")
 		// 1 (2) 3 (4) 5
 		// 1 (4) 3 (2) 5
 		// Assymetry test 1
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 		swap_nodes(&b, &d);
-		REQUIRE(!asBefore(a, b, c, d, e));
+		REQUIRE(!asBefore5(a, b, c, d, e));
 		swap_nodes(&b, &d);
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 		// 1 2 (3) 4 5
 		// 1 2 (3) 4 5
 		// Assymetry test 2
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 		swap_nodes(&c, &c);
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 		swap_nodes(&c, &c);
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 		// 1 2 (3) (4) 5
 		// 1 2 (4) (3) 5
 		// Assymetry test 3
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 		swap_nodes(&c, &d);
-		REQUIRE(!asBefore(a, b, c, d, e));
+		REQUIRE(!asBefore5(a, b, c, d, e));
 		swap_nodes(&c, &d);
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 		// (1) 2 3 4 (5)
 		// (5) 2 3 4 (1)
 		// Assymetry test 4
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 		swap_nodes(&a, &e);
-		REQUIRE(!asBefore(a, b, c, d, e));
+		REQUIRE(!asBefore5(a, b, c, d, e));
 		swap_nodes(&e, &a);
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 	}
 	{
 		// 1 (2) 3 (4) 5
 		// 1 (4) 3 (2) 5
 		// basic test
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 		swap_nodes(&b, &d);
 		REQUIRE(strcmp(a->info.name, a_name) == 0);
 		REQUIRE(strcmp(a->next->info.name, d_name) == 0);
@@ -80,13 +81,13 @@ TEST_CASE("Swap nodes", "[sort]")
 		REQUIRE(strcmp(e->prev->prev->prev->info.name, d_name) == 0);
 		REQUIRE(strcmp(e->prev->prev->prev->prev->info.name, a_name) == 0);
 		swap_nodes(&b, &d);
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 	}
 	{
 		// (1) 2 3 4 (5)
 		// (5) 2 3 4 (1)
 		// edge test
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 		swap_nodes(&a, &e);
 		REQUIRE(strcmp(a->info.name, e_name) == 0);
 		REQUIRE(strcmp(a->next->info.name, b_name) == 0);
@@ -99,13 +100,13 @@ TEST_CASE("Swap nodes", "[sort]")
 		REQUIRE(strcmp(e->prev->prev->prev->info.name, b_name) == 0);
 		REQUIRE(strcmp(e->prev->prev->prev->prev->info.name, e_name) == 0);
 		swap_nodes(&a, &e);
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 	}
 	{
 		// (1) (2) 3 4 5
 		// (2) (1) 3 4 5
 		// neighbour test
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 		swap_nodes(&a, &b);
 		REQUIRE(strcmp(a->info.name, b_name) == 0);
 		REQUIRE(strcmp(a->next->info.name, a_name) == 0);
@@ -118,13 +119,46 @@ TEST_CASE("Swap nodes", "[sort]")
 		REQUIRE(strcmp(e->prev->prev->prev->info.name, a_name) == 0);
 		REQUIRE(strcmp(e->prev->prev->prev->prev->info.name, b_name) == 0);
 		swap_nodes(&a, &b);
-		REQUIRE(asBefore(a, b, c, d, e));
+		REQUIRE(asBefore5(a, b, c, d, e));
 	}
 	delete a;
 	delete b;
 	delete c;
 	delete d;
 	delete e;
+}
+
+TEST_CASE("Swap nodes in 2 element lists", "[sort]")
+{
+	t_file_node_ptr a, b;
+	a = create_node(a_name, NULL, NULL);
+	b = create_node(b_name, a, NULL);
+	a->next = b;
+	{
+		// Assymetry test
+		REQUIRE(asBefore2(a, b));
+		swap_nodes(&a, &b);
+		REQUIRE(!asBefore2(a, b));
+		swap_nodes(&a, &b);
+		REQUIRE(asBefore2(a, b));
+	}
+	{
+		// Basic test
+		// (1) (2)
+		// (2) (1)
+		REQUIRE(asBefore2(a, b));
+		swap_nodes(&a, &b);
+		REQUIRE(strcmp(a->info.name, b_name) == 0);
+		REQUIRE(strcmp(a->next->info.name, a_name) == 0);
+		REQUIRE(a->next->next == NULL);
+		REQUIRE(strcmp(b->info.name, a_name) == 0);
+		REQUIRE(strcmp(b->prev->info.name, b_name) == 0);
+		REQUIRE(b->prev->prev == NULL);
+		swap_nodes(&a, &b);
+		REQUIRE(asBefore2(a, b));
+	}
+	delete a;
+	delete b;
 }
 
 t_file_node* create_node(const char* name, t_file_node* prev, t_file_node* next)
@@ -136,7 +170,7 @@ t_file_node* create_node(const char* name, t_file_node* prev, t_file_node* next)
 	return result;
 }
 
-bool asBefore(t_file_node_ptr a, t_file_node_ptr b, t_file_node_ptr c,
+bool asBefore5(t_file_node_ptr a, t_file_node_ptr b, t_file_node_ptr c,
 	t_file_node_ptr d, t_file_node_ptr e)
 {
 	const size_t nbRequirments = 15;
@@ -156,5 +190,18 @@ bool asBefore(t_file_node_ptr a, t_file_node_ptr b, t_file_node_ptr c,
 	if (strcmp(c->info.name, c_name) == 0) ++i;
 	if (strcmp(d->info.name, d_name) == 0) ++i;
 	if (strcmp(e->info.name, e_name) == 0) ++i;
+	return i == nbRequirments;
+}
+
+bool asBefore2(t_file_node_ptr a, t_file_node_ptr b)
+{
+	const size_t nbRequirments = 6;
+	size_t i = 0;
+	if (a->next == b) ++i;
+	if (b->next == NULL) ++i;
+	if (b->prev == a) ++i;
+	if (a->prev == NULL) ++i;
+	if (strcmp(a->info.name, a_name) == 0) ++i;
+	if (strcmp(b->info.name, b_name) == 0) ++i;
 	return i == nbRequirments;
 }
