@@ -4,23 +4,12 @@
 
 t_file_node* partition(t_file_node** head, t_file_node** last);
 void sort(t_file_node** head_ptr, t_file_node** last_ptr);
-void swap_nodes(t_file_node** a, t_file_node** b);
 void swap(t_file_node** a, t_file_node** b);
 
 void sort_file_list(t_file_list* dir_files)
 {
 	assert(dir_files && dir_files->len > 1);
-	t_file_node prev_head;
-	t_file_node next_last;
-	dir_files->head->prev = &prev_head;
-	prev_head.next = dir_files->head;
-	dir_files->last->next = &next_last;
-	next_last.prev = dir_files->last;
 	sort(&dir_files->head, &dir_files->last);
-	dir_files->head = prev_head.next;
-	dir_files->head->prev = NULL;
-	dir_files->last = next_last.prev;
-	dir_files->last->next = NULL;
 }
 
 void sort(t_file_node** head_ptr, t_file_node** last_ptr)
@@ -46,28 +35,27 @@ t_file_node* partition(t_file_node** head_ptr, t_file_node** last_ptr)
 	return *head_ptr;
 }
 
-t_file_node** take_next(t_file_node** a);
-t_file_node** take_prev(t_file_node** a);
-
-void swap_nodes(t_file_node** a, t_file_node** b)
+void swap_nodes(t_file_node** a_ptr, t_file_node** b_ptr)
 {
-	assert(a && b && *a && *b);
-	swap(take_next(a), take_next(b));
-	swap(take_next(&(*a)->prev), take_next(&(*b)->prev));
-	swap(take_prev(a), take_prev(b));
-	swap(take_prev(&(*a)->next), take_prev(&(*b)->next));
-}
+	assert(a_ptr && b_ptr && *a_ptr && *b_ptr);
+	t_file_node* a = *a_ptr;
+	t_file_node* b = *b_ptr;
+	t_file_node* a_prev = a->prev;
+	t_file_node* b_prev = b->prev;
+	t_file_node* a_next = a->next;
+	t_file_node* b_next = b->next;
 
-t_file_node** take_next(t_file_node** a)
-{
-	assert(a);
-	return &(*a)->next;
-}
+	if (a_prev) a_prev->next = b;
+	if (b_prev) b_prev->next = a;
+	if (a_next) a_next->prev = b;
+	if (b_next) b_next->prev = a;
 
-t_file_node** take_prev(t_file_node** a)
-{
-	assert(a);
-	return &(*a)->prev;
+	a->prev = b_prev;
+	a->next = b_next;
+	b->prev = a_prev;
+	b->next = a_next;
+
+	swap(a_ptr, b_ptr);
 }
 
 void swap(t_file_node** a, t_file_node** b)

@@ -63,3 +63,4 @@ t_file_node* new_file_node(const char* file_name, const char* path);
 
 bool is_flag_argv(const char* str);
 enum file_type define_file_type(const char* path, const char* file_name);
+void swap_nodes(t_file_node** a, t_file_node** b);
