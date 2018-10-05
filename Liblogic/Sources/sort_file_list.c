@@ -2,7 +2,6 @@
 #include <libft.h>
 #include <assert.h>
 
-t_file_node* partition(t_file_node** head, t_file_node** last);
 void sort(t_file_node** head_ptr, t_file_node** last_ptr);
 void swap(t_file_node** a, t_file_node** b);
 
@@ -44,15 +43,12 @@ void swap_nodes(t_file_node** a_ptr, t_file_node** b_ptr)
 	t_file_node* b_prev = b->prev;
 	t_file_node* a_next = a->next;
 	t_file_node* b_next = b->next;
-
 	if (a_prev) a_prev->next = b;
 	if (b_prev) b_prev->next = a;
 	if (a_next) a_next->prev = b;
 	if (b_next) b_next->prev = a;
-
 	swap(&a->next, &b->next);
 	swap(&a->prev, &b->prev);
-
 	swap(a_ptr, b_ptr);
 }
 

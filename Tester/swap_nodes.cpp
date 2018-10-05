@@ -18,7 +18,7 @@ const char* c_name = "3";
 const char* d_name = "4";
 const char* e_name = "5";
 
-TEST_CASE("Swap nodes in 5 element list", "[sort]")
+TEST_CASE("5 element list", "[sort]")
 {
 	t_file_node_ptr a, b, c, d, e;
 	a = create_node(a_name, NULL, NULL);
@@ -128,7 +128,7 @@ TEST_CASE("Swap nodes in 5 element list", "[sort]")
 	delete e;
 }
 
-TEST_CASE("Swap nodes in 2 element lists", "[sort]")
+TEST_CASE("2 element lists", "[sort]")
 {
 	t_file_node_ptr a, b;
 	a = create_node(a_name, NULL, NULL);
