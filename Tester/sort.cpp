@@ -112,11 +112,11 @@ TEST_CASE("Swap nodes", "[sort]")
 		REQUIRE(strcmp(a->next->next->info.name, c_name) == 0);
 		REQUIRE(strcmp(a->next->next->next->info.name, d_name) == 0);
 		REQUIRE(strcmp(a->next->next->next->next->info.name, e_name) == 0);
-		REQUIRE(strcmp(e->info.name, a_name) == 0);
+		REQUIRE(strcmp(e->info.name, e_name) == 0);
 		REQUIRE(strcmp(e->prev->info.name, d_name) == 0);
 		REQUIRE(strcmp(e->prev->prev->info.name, c_name) == 0);
-		REQUIRE(strcmp(e->prev->prev->prev->info.name, b_name) == 0);
-		REQUIRE(strcmp(e->prev->prev->prev->prev->info.name, e_name) == 0);
+		REQUIRE(strcmp(e->prev->prev->prev->info.name, a_name) == 0);
+		REQUIRE(strcmp(e->prev->prev->prev->prev->info.name, b_name) == 0);
 		swap_nodes(&a, &b);
 		REQUIRE(asBefore(a, b, c, d, e));
 	}

@@ -50,17 +50,15 @@ void swap_nodes(t_file_node** a_ptr, t_file_node** b_ptr)
 	if (a_next) a_next->prev = b;
 	if (b_next) b_next->prev = a;
 
-	a->prev = b_prev;
-	a->next = b_next;
-	b->prev = a_prev;
-	b->next = a_next;
+	swap(&a->next, &b->next);
+	swap(&a->prev, &b->prev);
 
 	swap(a_ptr, b_ptr);
 }
 
 void swap(t_file_node** a, t_file_node** b)
 {
-	assert(a && b && *a && *b);
+	assert(a && b);
 	t_file_node* temp = *a;
 	*a = *b;
 	*b = temp;
