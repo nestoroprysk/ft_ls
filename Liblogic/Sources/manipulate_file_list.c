@@ -9,13 +9,16 @@ void append_file_node(t_file_list* files_ptr, t_file_node* newNode)
 	assert(files_ptr && newNode);
 	if (files_ptr->len == 0)
 	{
+		newNode->prev = NULL;
+		newNode->next = NULL;
 		files_ptr->head = newNode;
 		files_ptr->last = newNode;
 	}
 	else
 	{
-		files_ptr->last->next = newNode;
 		newNode->prev = files_ptr->last;
+		newNode->next = NULL;
+		files_ptr->last->next = newNode;
 		files_ptr->last = newNode;
 	}
 	++files_ptr->len;
@@ -75,4 +78,38 @@ char* create_path(const char* a, const char* b)
 	char* result = ft_strjoin(temp, "/");
 	free(temp);
 	return result;
+}
+
+t_file_list merge_file_lists(t_file_list* a, t_file_list* b)
+{
+	assert(a && b && !(a->len == 0 && b->len == 0));
+	if (a->len == 0) return *b;
+	if (b->len == 0) return *a;
+	t_file_list result;
+	result.head = a->head;
+	result.last = b->last;
+	result.len = a->len + b->len;
+	a->last->next = b->head;
+	b->head->prev = a->last;
+	a->head = NULL;
+	a->last = NULL;
+	a->len = 0;
+	b->head = NULL;
+	a->last = NULL;
+	b->len = 0;
+	return result;
+}
+
+t_file_list init_file_list()
+{
+	t_file_list result;
+	result.head = NULL;
+	result.last = NULL;
+	result.len = 0;
+	return result;
+}
+
+bool is_bigger(t_file_node* a, t_file_node* b)
+{
+	return ft_strcmp(a->info.name, b->info.name) > 0;
 }

@@ -9,7 +9,7 @@ LIB_LOGIC_INC_DIR = $(LIB_LOGIC_DIR)/Includes/
 LIB_FT_DIR = ../Libft/
 
 SRC_NAME =	valid_flags.cpp invalid_flags.cpp strange_flags.cpp basic_files.cpp\
-			swap_nodes.cpp partition.cpp
+			swap_nodes.cpp partition.cpp sort.cpp
 
 DEPS =  $(LIB_LOGIC_DIR)/Sources/*.c $(LIB_LOGIC_INC_DIR)/*.h\
 		$(LIB_FT_DIR)/Sources/*.c $(LIB_FT_DIR)/Includes/*.h

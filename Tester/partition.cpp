@@ -1,5 +1,7 @@
 #include "catch.hpp"
 
+#include <fstream>
+
 extern "C"
 {
 	#include <liblogic.h>
@@ -9,17 +11,15 @@ using t_file_node_ptr = t_file_node*;
 
 t_file_node_ptr create(const char* name);
 
-const char* name1 = "1";
-const char* name2 = "2";
-const char* name3 = "3";
-const char* name4 = "4";
-const char* name5 = "5";
-const char* name6 = "6";
-const char* name9 = "9";
-
 TEST_CASE("Partition from tutorial", "[partition]")
 {
-	
+	const char* name1 = "1";
+	const char* name2 = "2";
+	const char* name3 = "3";
+	const char* name4 = "4";
+	const char* name5 = "5";
+	const char* name6 = "6";
+	const char* name9 = "9";
 	t_file_node_ptr node3_1 = create(name3);
 	t_file_node_ptr node1_1 = create(name1);
 	t_file_node_ptr node4 = create(name4);
@@ -72,41 +72,92 @@ TEST_CASE("Partition from tutorial", "[partition]")
 	REQUIRE(!node3_2->prev->prev->prev->prev->prev->prev->prev->prev->prev->prev);
 	{
 		partition(&node3_1, &node3_2);
-									// Is    : 3 1 4 1 5 9 2 6 5 3
-									// Should: 2 1 1 3 5 9 4 6 5 3
-		REQUIRE(strcmp(node3_1->info.name, name2) == 0);
+		// Is    : 3 1 4 1 5 9 2 6 5 3
+		// Should: 1 1 2 3 3 4 5 9 6 5
+		REQUIRE(strcmp(node3_1->info.name, name1) == 0);
 		REQUIRE(strcmp(node3_1->next->info.name, name1) == 0);
-		REQUIRE(strcmp(node3_1->next->next->info.name, name1) == 0);
+		REQUIRE(strcmp(node3_1->next->next->info.name, name2) == 0);
 		REQUIRE(strcmp(node3_1->next->next->next->info.name, name3) == 0);
-		REQUIRE(strcmp(node3_1->next->next->next->next->info.name, name5) == 0);
-		REQUIRE(strcmp(node3_1->next->next->next->next->next->info.name, name9) == 0);
-		REQUIRE(strcmp(node3_1->next->next->next->next->next->next->info.name, name4) == 0);
-		REQUIRE(strcmp(node3_1->next->next->next->next->next->next->next->info.name, name6) == 0);
-		REQUIRE(strcmp(node3_1->next->next->next->next->next->next->next->next->info.name, name5) == 0);
-		REQUIRE(strcmp(node3_1->next->next->next->next->next->next->next->next->next->info.name, name3) == 0);
+		REQUIRE(strcmp(node3_1->next->next->next->next->info.name, name3) == 0);
+		REQUIRE(strcmp(node3_1->next->next->next->next->next->info.name, name4) == 0);
+		REQUIRE(strcmp(node3_1->next->next->next->next->next->next->info.name, name5) == 0);
+		REQUIRE(strcmp(node3_1->next->next->next->next->next->next->next->info.name, name9) == 0);
+		REQUIRE(strcmp(node3_1->next->next->next->next->next->next->next->next->info.name, name6) == 0);
+		REQUIRE(strcmp(node3_1->next->next->next->next->next->next->next->next->next->info.name, name5) == 0);
 		REQUIRE(!node3_1->next->next->next->next->next->next->next->next->next->next);
-		REQUIRE(strcmp(node3_2->info.name, name3) == 0);
-		REQUIRE(strcmp(node3_2->prev->info.name, name5) == 0);
-		REQUIRE(strcmp(node3_2->prev->prev->info.name, name6) == 0);
-		REQUIRE(strcmp(node3_2->prev->prev->prev->info.name, name4) == 0);
-		REQUIRE(strcmp(node3_2->prev->prev->prev->prev->info.name, name9) == 0);
-		REQUIRE(strcmp(node3_2->prev->prev->prev->prev->prev->info.name, name5) == 0);
+		REQUIRE(strcmp(node3_2->info.name, name5) == 0);
+		REQUIRE(strcmp(node3_2->prev->info.name, name6) == 0);
+		REQUIRE(strcmp(node3_2->prev->prev->info.name, name9) == 0);
+		REQUIRE(strcmp(node3_2->prev->prev->prev->info.name, name5) == 0);
+		REQUIRE(strcmp(node3_2->prev->prev->prev->prev->info.name, name4) == 0);
+		REQUIRE(strcmp(node3_2->prev->prev->prev->prev->prev->info.name, name3) == 0);
 		REQUIRE(strcmp(node3_2->prev->prev->prev->prev->prev->prev->info.name, name3) == 0);
-		REQUIRE(strcmp(node3_2->prev->prev->prev->prev->prev->prev->prev->info.name, name1) == 0);
+		REQUIRE(strcmp(node3_2->prev->prev->prev->prev->prev->prev->prev->info.name, name2) == 0);
 		REQUIRE(strcmp(node3_2->prev->prev->prev->prev->prev->prev->prev->prev->info.name, name1) == 0);
-		REQUIRE(strcmp(node3_2->prev->prev->prev->prev->prev->prev->prev->prev->prev->info.name, name2) == 0);
+		REQUIRE(strcmp(node3_2->prev->prev->prev->prev->prev->prev->prev->prev->prev->info.name, name1) == 0);
 		REQUIRE(!node3_2->prev->prev->prev->prev->prev->prev->prev->prev->prev->prev);
 	}
-	delete node3_1;
-	delete node1_1;
-	delete node4;
-	delete node1_2;
-	delete node5_1;
-	delete node9;
-	delete node2;
-	delete node6;
-	delete node5_2;
-	delete node3_2;
+	t_file_node_ptr it = node3_1;
+	while (it)
+	{
+		t_file_node_ptr temp = it->next;
+		delete it;
+		it = temp;
+	}
+	{
+		t_file_node_ptr a = create(name1);
+		t_file_node_ptr b = create(name2);
+		a->prev = NULL;
+		a->next = b;
+		b->prev = a;
+		b->next = NULL;
+		REQUIRE(a->next == b);
+		REQUIRE(!a->next->next);
+		REQUIRE(b->prev == a);
+		REQUIRE(!b->prev->prev);
+		REQUIRE(strcmp(a->info.name, name1) == 0);
+		REQUIRE(strcmp(a->next->info.name, name2) == 0);
+		REQUIRE(strcmp(b->info.name, name2) == 0);
+		REQUIRE(strcmp(b->prev->info.name, name1) == 0);
+		partition(&a, &b);
+		REQUIRE(a->next == b);
+		REQUIRE(!a->next->next);
+		REQUIRE(b->prev == a);
+		REQUIRE(!b->prev->prev);
+		REQUIRE(strcmp(a->info.name, name1) == 0);
+		REQUIRE(strcmp(a->next->info.name, name2) == 0);
+		REQUIRE(strcmp(b->info.name, name2) == 0);
+		REQUIRE(strcmp(b->prev->info.name, name1) == 0);
+		delete a;
+		delete b;
+	}
+	{
+		t_file_node_ptr a = create(name2);
+		t_file_node_ptr b = create(name1);
+		a->prev = NULL;
+		a->next = b;
+		b->prev = a;
+		b->next = NULL;
+		REQUIRE(a->next == b);
+		REQUIRE(!a->next->next);
+		REQUIRE(b->prev == a);
+		REQUIRE(!b->prev->prev);
+		REQUIRE(strcmp(a->info.name, name2) == 0);
+		REQUIRE(strcmp(a->next->info.name, name1) == 0);
+		REQUIRE(strcmp(b->info.name, name1) == 0);
+		REQUIRE(strcmp(b->prev->info.name, name2) == 0);
+		partition(&a, &b);
+		REQUIRE(a->next == b);
+		REQUIRE(!a->next->next);
+		REQUIRE(b->prev == a);
+		REQUIRE(!b->prev->prev);
+		REQUIRE(strcmp(a->info.name, name1) == 0);
+		REQUIRE(strcmp(a->next->info.name, name2) == 0);
+		REQUIRE(strcmp(b->info.name, name2) == 0);
+		REQUIRE(strcmp(b->prev->info.name, name1) == 0);
+		delete a;
+		delete b;
+	}
 }
 
 t_file_node_ptr create(const char* name)
