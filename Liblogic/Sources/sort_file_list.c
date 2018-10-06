@@ -1,21 +1,14 @@
 #include <liblogic.h>
 #include <libft.h>
 #include <assert.h>
-#include <stdio.h>
 
 void sort(t_file_node** head_ptr, t_file_node** last_ptr);
-void print_list(t_file_node* head_ptr, t_file_node* last_ptr);
 void swap(t_file_node** a, t_file_node** b);
-
-FILE *file;
 
 void sort_file_list(t_file_list* dir_files)
 {
 	assert(dir_files && dir_files->len > 1);
-	file = fopen("log2.txt", "w");
-	assert(file);
 	sort(&dir_files->head, &dir_files->last);
-	print_list(dir_files->head, dir_files->last);
 }
 
 void sort(t_file_node** head_ptr, t_file_node** last_ptr)
@@ -37,7 +30,6 @@ void sort(t_file_node** head_ptr, t_file_node** last_ptr)
 t_file_node* partition(t_file_node** head_ptr, t_file_node** last_ptr)
 {
 	assert(head_ptr && last_ptr && *head_ptr && *last_ptr);
-	print_list(*head_ptr, *last_ptr);
 	t_file_node* head_prev = (*head_ptr)->prev;
 	t_file_node* last_next = (*last_ptr)->next;
 	t_file_node* pivot = *head_ptr;
@@ -65,23 +57,7 @@ t_file_node* partition(t_file_node** head_ptr, t_file_node** last_ptr)
 	}
 	*head_ptr = result.head;
 	*last_ptr = result.last;
-	print_list(*head_ptr, *last_ptr);
 	return pivot;
-}
-
-void print_list(t_file_node* head_ptr, t_file_node* last_ptr)
-{
-	if (!file) return;
-	assert(head_ptr && last_ptr);
-	size_t i = 0;
-	while (head_ptr && head_ptr != last_ptr && i++ < 20)
-	{
-		fprintf(file, "%s->", head_ptr->info.name);
-		head_ptr = head_ptr->next;
-	}
-	fprintf(file, "%s", head_ptr->info.name);
-	if (head_ptr->next) fprintf(file, "|->%s\n", head_ptr->next->info.name);
-	else fprintf(file, "\n");
 }
 
 void swap_nodes(t_file_node** a_ptr, t_file_node** b_ptr)
@@ -95,13 +71,14 @@ void swap_nodes(t_file_node** a_ptr, t_file_node** b_ptr)
 	t_file_node* b_next = b->next;
 	if (a->next == b)
 	{
-		t_file_node* temp = b->next;
+		if (a_prev) a_prev->next = b;
+		if (b_next) b_next->prev = a;
 		b->next = a;
-		a->next = temp;
-		temp = a->prev;
+		a->next = b_next;
 		a->prev = b;
-		b->prev = temp;
-		swap(a_ptr, b_ptr);
+		b->prev = a_prev;
+		*a_ptr = b;
+		*b_ptr = a;
 		return;
 	}
 	if (a_prev) a_prev->next = b;

@@ -8,7 +8,6 @@ extern "C"
 using t_file_node_ptr = t_file_node*;
 
 t_file_node_ptr create(const char* name);
-void printList(t_file_node_ptr a, t_file_node_ptr b);
 
 TEST_CASE("Basic sort", "[sort]")
 {
@@ -106,15 +105,4 @@ TEST_CASE("Basic sort", "[sort]")
 		delete it;
 		it = temp;
 	}
-}
-
-#include <fstream>
-
-std::ofstream s("log.txt");
-
-void printList(t_file_node_ptr a, t_file_node_ptr b)
-{
-	for (; a != b; a = a->next)
-		s << a->info.name << "->";
-	s << b->info.name << std::endl;
 }
