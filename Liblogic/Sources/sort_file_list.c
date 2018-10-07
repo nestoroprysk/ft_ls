@@ -3,7 +3,7 @@
 #include <assert.h>
 
 void sort(t_file_node** head_ptr, t_file_node** last_ptr);
-void swap(t_file_node** a, t_file_node** b);
+void swap_neighbours(t_file_node** left_ptr, t_file_node** right_ptr);
 
 void sort_file_list(t_file_list* dir_files)
 {
@@ -18,7 +18,7 @@ void sort(t_file_node** head_ptr, t_file_node** last_ptr)
 	if ((*head_ptr)->next == *last_ptr)
 	{
 		if (is_bigger(*head_ptr, *last_ptr))
-			swap_nodes(head_ptr, last_ptr);
+			swap_neighbours(head_ptr, last_ptr);
 		return;
 	}
 	t_file_node* mid = partition(head_ptr, last_ptr);
@@ -60,40 +60,20 @@ t_file_node* partition(t_file_node** head_ptr, t_file_node** last_ptr)
 	return pivot;
 }
 
-void swap_nodes(t_file_node** a_ptr, t_file_node** b_ptr)
+void swap_neighbours(t_file_node** left_ptr, t_file_node** right_ptr)
 {
-	assert(a_ptr && b_ptr && *a_ptr && *b_ptr);
-	t_file_node* a = *a_ptr;
-	t_file_node* b = *b_ptr;
+	assert(left_ptr && right_ptr && *left_ptr && *right_ptr &&
+		(*left_ptr)->next == *right_ptr);
+	t_file_node* a = *left_ptr;
+	t_file_node* b = *right_ptr;
 	t_file_node* a_prev = a->prev;
-	t_file_node* b_prev = b->prev;
-	t_file_node* a_next = a->next;
 	t_file_node* b_next = b->next;
-	if (a->next == b)
-	{
-		if (a_prev) a_prev->next = b;
-		if (b_next) b_next->prev = a;
-		b->next = a;
-		a->next = b_next;
-		a->prev = b;
-		b->prev = a_prev;
-		*a_ptr = b;
-		*b_ptr = a;
-		return;
-	}
 	if (a_prev) a_prev->next = b;
-	if (b_prev) b_prev->next = a;
-	if (a_next) a_next->prev = b;
 	if (b_next) b_next->prev = a;
-	swap(&a->next, &b->next);
-	swap(&a->prev, &b->prev);
-	swap(a_ptr, b_ptr);
-}
-
-void swap(t_file_node** a, t_file_node** b)
-{
-	assert(a && b);
-	t_file_node* temp = *a;
-	*a = *b;
-	*b = temp;
+	b->next = a;
+	a->next = b_next;
+	a->prev = b;
+	b->prev = a_prev;
+	*left_ptr = b;
+	*right_ptr = a;
 }
