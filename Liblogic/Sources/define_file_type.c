@@ -11,11 +11,16 @@ bool is_true(mode_t type);
 
 typedef bool (*is_file_type_func)(mode_t s);
 
-static is_file_type_func is_file_type[NB_FILE_TYPES] =
-	{is_dir,is_reg_file};
+char get_file_type(t_file_node* n)
+{
+	static char file_type_char[NB_FILE_TYPES] = { 'd', '-' };
+	return file_type_char[define_file_type(n->info.path, n->info.name)];
+}
 
 enum file_type define_file_type(const char* path, const char* file_name)
 {
+	static is_file_type_func is_file_type[NB_FILE_TYPES] =
+											{is_dir,is_reg_file};
 	assert(path && file_name);
 	char* str = ft_strjoin(path, file_name);
 	struct stat file_info;
@@ -30,7 +35,6 @@ enum file_type define_file_type(const char* path, const char* file_name)
 		}
 	}
 	free(str);
-	assert(false);
 	return other_file_type;
 }
 

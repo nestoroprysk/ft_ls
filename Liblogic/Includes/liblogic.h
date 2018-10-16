@@ -72,6 +72,7 @@ void append_file_node(t_file_list* files_ptr, t_file_node* newNode);
 t_file_node* new_file_node(const char* file_name, const char* path);
 
 bool is_flag_argv(const char* str);
+char get_file_type(t_file_node* n);
 enum file_type define_file_type(const char* path, const char* file_name);
 t_file_node* partition(t_file_node** head, t_file_node** last);
 t_file_list merge_file_lists(t_file_list* a, t_file_list* b);
