@@ -2,7 +2,7 @@
 #include <libft.h>
 #include <assert.h>
 
-bool is_valid_flag(const char* str);
+static bool is_valid_flag(const char* str);
 
 bool valid_flags(int argc, const char** argv)
 {
@@ -20,7 +20,7 @@ t_flags* parse_flags(int argc, const char** argv)
 		if (is_flag_argv(argv[i]))
 			for (size_t j = 0; j < NB_FLAGS; ++j)
 				if (ft_strchr(argv[i], FLAGS_STR[j]))
-					result->flag[j] = true;
+					result->state[j] = true;
 	return result;
 }
 
@@ -30,7 +30,7 @@ bool is_flag_argv(const char* str)
 	return ft_strlen(str) > 1 && str[0] == '-';
 }
 
-bool is_valid_flag(const char* str)
+static bool is_valid_flag(const char* str)
 {
 	assert(str);
 	size_t len = ft_strlen(str);
@@ -39,4 +39,3 @@ bool is_valid_flag(const char* str)
 			return false;
 	return true;
 }
-

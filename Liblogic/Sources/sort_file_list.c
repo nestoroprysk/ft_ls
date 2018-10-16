@@ -2,8 +2,8 @@
 #include <libft.h>
 #include <assert.h>
 
-void sort(t_file_node** head_ptr, t_file_node** last_ptr);
-void swap_neighbours(t_file_node** left_ptr, t_file_node** right_ptr);
+static void sort(t_file_node** head_ptr, t_file_node** last_ptr);
+static void swap_neighbours(t_file_node** left_ptr, t_file_node** right_ptr);
 
 void sort_file_list(t_file_list* dir_files)
 {
@@ -11,7 +11,7 @@ void sort_file_list(t_file_list* dir_files)
 	sort(&dir_files->head, &dir_files->last);
 }
 
-void sort(t_file_node** head_ptr, t_file_node** last_ptr)
+static void sort(t_file_node** head_ptr, t_file_node** last_ptr)
 {
 	assert(head_ptr && last_ptr && *head_ptr && *last_ptr);
 	if (*head_ptr == *last_ptr) return;
@@ -60,7 +60,7 @@ t_file_node* partition(t_file_node** head_ptr, t_file_node** last_ptr)
 	return pivot;
 }
 
-void swap_neighbours(t_file_node** left_ptr, t_file_node** right_ptr)
+static void swap_neighbours(t_file_node** left_ptr, t_file_node** right_ptr)
 {
 	assert(left_ptr && right_ptr && *left_ptr && *right_ptr &&
 		(*left_ptr)->next == *right_ptr);

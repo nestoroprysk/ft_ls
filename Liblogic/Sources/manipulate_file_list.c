@@ -34,6 +34,7 @@ t_file_node* new_file_node(const char* file_name, const char* path)
 	assert(ft_strlen(path) < MAX_PATH_LEN);
 	ft_strcpy(result->info.path, path);
 	result->info.type = define_file_type(path, file_name);
+	result->info.is_hidden = file_name[0] == '.';
 	result->info.is_valid = true;
 	return result;
 }
@@ -110,4 +111,10 @@ t_file_list init_file_list()
 bool is_bigger(t_file_node const* a, t_file_node const* b)
 {
 	return ft_strcmp(a->info.name, b->info.name) > 0;
+}
+
+t_file_node* foo(t_file_node* n)
+{
+	assert(n);
+	return n;
 }
