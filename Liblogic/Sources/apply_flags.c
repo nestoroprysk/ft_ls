@@ -38,6 +38,8 @@ static void l(t_file_node* n)
 static void R(t_file_node* n)
 {
 	assert(n);
+	if (n->info.type == dir_file_type)
+		n->nested_file_list = add_dir_content(n);
 }
 
 static void a(t_file_node* n)
