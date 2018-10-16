@@ -60,7 +60,6 @@ t_file_list* add_dir_content(const t_file_node* dir_file)
 		(t_file_list*)ft_memalloc(sizeof(t_file_list));
 	while ((dir_info = readdir(dir_ptr)) != NULL)
 	{
-		if (dir_info->d_name[0] == '.') continue;
 		char* path = create_path(dir_file->info.path,
 			dir_file->info.name);
 		append_file_node(dir_files,

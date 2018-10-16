@@ -40,7 +40,7 @@ typedef struct s_file_list t_file_list;
 
 typedef struct s_file_node
 {
-	char display_buff[MAX_INFO_LEN];
+	char display_buff[MAX_INFO_LEN + 1];
 	t_file_node_info info;
 	struct s_file_node* prev;
 	struct s_file_node* next;

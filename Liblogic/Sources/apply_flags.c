@@ -29,7 +29,9 @@ static void display_name(t_file_node* n)
 static void l(t_file_node* n)
 {
 	assert(n);
-	char file_type = get_file_type(n);
+	const char file_type = get_file_type(n);
+	const char nb_chars_to_add = 2;
+	assert(ft_strlen(n->display_buff) + nb_chars_to_add < MAX_INFO_LEN);
 	ft_strncat(n->display_buff, &file_type, 1);
 	ft_strcat(n->display_buff, " ");
 	display_name(n);

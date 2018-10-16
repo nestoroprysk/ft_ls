@@ -20,7 +20,6 @@ void display_file_list(t_file_list* file_list, t_flags* flags)
 			display_file_list(it->nested_file_list, flags);
 }
 
-
 static void call_flag_funcs(t_file_list* file_list, t_file_node* n)
 {
 	assert(file_list && n);
