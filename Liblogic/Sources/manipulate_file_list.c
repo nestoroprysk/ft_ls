@@ -68,7 +68,6 @@ t_file_list* add_dir_content(const t_file_node* dir_file)
 		free(path);
 	}
 	closedir(dir_ptr);
-	sort_file_list(dir_files);
 	return dir_files;
 }
 
