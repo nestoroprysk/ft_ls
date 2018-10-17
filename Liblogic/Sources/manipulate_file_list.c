@@ -39,7 +39,8 @@ t_file_node* new_file_node(const char* file_name, const char* path)
 	assert(result->info.full_name_len <= MAX_FILE_NAME_LEN + MAX_PATH_LEN);
 	ft_strcpy(result->info.full_name, path);
 	ft_strcpy(&result->info.full_name[result->info.path_len], file_name);
-	result->info.type = define_file_type(result->info.full_name);
+	assert(stat(result->info.full_name, &result->raw_info) == 0);
+	result->info.type = define_file_type(result);
 	result->info.is_hidden = file_name[0] == '.';
 	result->info.is_valid = true;
 	return result;

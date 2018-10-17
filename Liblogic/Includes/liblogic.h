@@ -49,6 +49,7 @@ typedef struct s_file_node
 {
 	t_display_buff display_buff;
 	t_file_node_info info;
+	struct stat raw_info;
 	struct s_file_node* prev;
 	struct s_file_node* next;
 	t_file_list* nested_file_list;
@@ -87,8 +88,7 @@ t_file_node* new_file_node(const char* file_name, const char* path);
 
 bool is_flag_argv(const char* str);
 char get_file_type_char(t_file_node* n);
-enum file_type define_file_type(const char* full_name);
-mode_t define_chmod(const char* full_name);
+enum file_type define_file_type(const t_file_node* n);
 void write_chmod_to_display_buff(t_file_node* n, mode_t chmod);
 t_file_node* partition(t_file_node** head, t_file_node** last);
 t_file_list merge_file_lists(t_file_list* a, t_file_list* b);
