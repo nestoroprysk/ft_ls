@@ -1,14 +1,12 @@
 #include <liblogic.h>
 #include <libft.h>
-#include <sys/stat.h>
 #include <stdlib.h>
 #include <assert.h>
 
-#define CHMOD_LEN 9
-
-t_file_node* define_chmod(t_file_node* n)
+mode_t define_chmod(const char* full_name)
 {
-	assert(n);
-	
-	return n;
+	assert(full_name);
+	struct stat file_info;
+	assert(stat(full_name, &file_info) == 0);
+	return file_info.st_mode;
 }

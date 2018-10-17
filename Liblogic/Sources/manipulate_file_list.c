@@ -124,17 +124,3 @@ t_file_node* foo(t_file_node* n)
 	assert(n);
 	return n;
 }
-
-void write_char_to_display_buff(t_file_node* n, char ch)
-{
-	assert(n->display_buff.len != MAX_INFO_BUFF_LEN);
-	n->display_buff.data[n->display_buff.len] = ch;
-	++n->display_buff.len;
-}
-
-void write_str_to_display_buff(t_file_node* n, const char* str, size_t len)
-{
-	assert(n->display_buff.len + len <= MAX_INFO_BUFF_LEN);
-	ft_strncpy(&n->display_buff.data[n->display_buff.len], str, len);
-	n->display_buff.len += len;
-}

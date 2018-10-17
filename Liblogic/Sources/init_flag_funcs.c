@@ -30,6 +30,7 @@ static t_file_node* l(t_file_node* n)
 {
 	assert(n);
 	write_char_to_display_buff(n, get_file_type_char(n));
+	write_chmod_to_display_buff(n, define_chmod(n->info.full_name));
 	write_char_to_display_buff(n, ' ');
 	n = name(n);
 	return n;
