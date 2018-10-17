@@ -31,3 +31,11 @@ void write_chmod_to_display_buff(t_file_node* n, mode_t chmod)
 			permission[(chmod >> (NB_CHMOD_FIELDS - i - 1)) & 1]
 				[i % NB_PERMISSION_TYPES]);
 }
+
+void write_nb_to_display_buff(t_file_node* n, int nb)
+{
+	char* temp = ft_itoa(nb);
+	assert(temp);
+	write_str_to_display_buff(n, temp, ft_strlen(temp));
+	free(temp);
+}
