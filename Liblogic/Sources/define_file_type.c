@@ -20,7 +20,7 @@ enum file_type define_file_type(const t_file_node* n)
 	static is_file_type_func is_file_type[NB_FILE_TYPES] =
 									{ is_root_dir, is_dir, is_reg_file };
 	assert(n);
-	mode_t type = n->raw_info.st_mode;
+	mode_t type = n->raw_info.stat.st_mode;
 	for (size_t i = 0; i < NB_FILE_TYPES; ++i)
 		if (is_file_type[i](type, n->info.name))
 			return i;

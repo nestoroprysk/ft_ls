@@ -39,3 +39,10 @@ void write_nb_to_display_buff(t_file_node* n, int nb)
 	write_str_to_display_buff(n, temp, ft_strlen(temp));
 	free(temp);
 }
+
+void write_user_name_to_display_buff(t_file_node* n)
+{
+	const char* user_name = n->raw_info.getpwuid->pw_name;
+	assert(user_name);
+	write_str_to_display_buff(n, user_name, ft_strlen(user_name));
+}

@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <sys/stat.h>
+#include <pwd.h>
 
 #define MAX_FILE_NAME_LEN 255
 
@@ -45,11 +46,17 @@ typedef struct s_display_buff
 	char data[MAX_INFO_BUFF_LEN + 1];
 } t_display_buff;
 
+typedef struct s_raw_info
+{
+	struct stat stat;
+	struct passwd* getpwuid; // leak
+} t_raw_info;
+
 typedef struct s_file_node
 {
 	t_display_buff display_buff;
 	t_file_node_info info;
-	struct stat raw_info;
+	t_raw_info raw_info;
 	struct s_file_node* prev;
 	struct s_file_node* next;
 	t_file_list* nested_file_list;
@@ -99,3 +106,4 @@ void write_char_to_display_buff(t_file_node* n, char ch);
 void write_str_to_display_buff(t_file_node* n, const char* str, size_t len);
 void write_chmod_to_display_buff(t_file_node* n, mode_t chmod);
 void write_nb_to_display_buff(t_file_node* n, int chmod);
+void write_user_name_to_display_buff(t_file_node* n);
