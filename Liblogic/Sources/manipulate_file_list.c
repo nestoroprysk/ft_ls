@@ -29,11 +29,17 @@ t_file_node* new_file_node(const char* file_name, const char* path)
 	assert(file_name);
 	t_file_node* result =
 		(t_file_node*)ft_memalloc(sizeof(t_file_node));
-	assert(ft_strlen(file_name) <= MAX_FILE_NAME_LEN);
+	result->info.name_len = ft_strlen(file_name);
+	assert(result->info.name_len <= MAX_FILE_NAME_LEN);
 	ft_strcpy(result->info.name, file_name);
-	assert(ft_strlen(path) < MAX_PATH_LEN);
+	result->info.path_len = ft_strlen(path);
+	assert(result->info.path_len < MAX_PATH_LEN);
 	ft_strcpy(result->info.path, path);
-	result->info.type = define_file_type(path, file_name);
+	result->info.full_name_len = result->info.path_len + result->info.name_len;
+	assert(result->info.full_name_len <= MAX_FILE_NAME_LEN + MAX_PATH_LEN);
+	ft_strcpy(result->info.full_name, path);
+	ft_strcpy(&result->info.full_name[result->info.path_len], file_name);
+	result->info.type = define_file_type(result->info.full_name);
 	result->info.is_hidden = file_name[0] == '.';
 	result->info.is_valid = true;
 	return result;
@@ -117,4 +123,18 @@ t_file_node* foo(t_file_node* n)
 {
 	assert(n);
 	return n;
+}
+
+void write_char_to_display_buff(t_file_node* n, char ch)
+{
+	assert(n->display_buff.len != MAX_INFO_BUFF_LEN);
+	n->display_buff.data[n->display_buff.len] = ch;
+	++n->display_buff.len;
+}
+
+void write_str_to_display_buff(t_file_node* n, const char* str, size_t len)
+{
+	assert(n->display_buff.len + len <= MAX_INFO_BUFF_LEN);
+	ft_strncpy(&n->display_buff.data[n->display_buff.len], str, len);
+	n->display_buff.len += len;
 }

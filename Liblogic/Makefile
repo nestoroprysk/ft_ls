@@ -10,7 +10,8 @@ SRC_DIR = Sources/
 SRC_NAME =  parse_files.c parse_flags.c\
 			display_file_info.c define_file_type.c\
 			manipulate_file_list.c display_file_list.c\
-			sort_file_list.c init_flag_funcs.c prepare_files.c
+			sort_file_list.c init_flag_funcs.c prepare_files.c\
+			define_chmod.c
 
 OBJ_DIR = Objects/
 OBJ_NAME = $(SRC_NAME:.c=.o)

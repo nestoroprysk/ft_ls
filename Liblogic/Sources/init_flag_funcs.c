@@ -2,6 +2,8 @@
 #include <libft.h>
 #include <assert.h>
 
+#define NB_L_CHARS 2
+
 static t_file_node* a(t_file_node* n);
 static t_file_node* l(t_file_node* n);
 static t_file_node* R(t_file_node* n);
@@ -27,11 +29,8 @@ static t_file_node* a(t_file_node* n)
 static t_file_node* l(t_file_node* n)
 {
 	assert(n);
-	const char file_type = get_file_type(n);
-	const char nb_chars_to_add = 2;
-	assert(ft_strlen(n->display_buff) + nb_chars_to_add < MAX_INFO_LEN);
-	ft_strncat(n->display_buff, &file_type, 1);
-	ft_strcat(n->display_buff, " ");
+	write_char_to_display_buff(n, get_file_type_char(n));
+	write_char_to_display_buff(n, ' ');
 	n = name(n);
 	return n;
 }
@@ -51,7 +50,7 @@ static t_file_node* R(t_file_node* n)
 static t_file_node* name(t_file_node* n)
 {
 	assert(n);
-	ft_strcat(n->display_buff, n->info.name);
+	write_str_to_display_buff(n, n->info.name, ft_strlen(n->info.name));
 	return n;
 }
 

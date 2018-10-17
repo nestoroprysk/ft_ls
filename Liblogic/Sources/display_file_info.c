@@ -16,6 +16,6 @@ void display_file_info(t_file_node* n)
 
 static t_file_node* display(t_file_node* n)
 {
-	printf("%s\n", n->display_buff);
+	printf("%s\n", n->display_buff.data);
 	return n;
 }
