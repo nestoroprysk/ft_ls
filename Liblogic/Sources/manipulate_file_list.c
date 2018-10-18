@@ -42,13 +42,15 @@ t_file_node* new_file_node(const char* file_name, const char* path)
 	assert(stat(result->info.full_name, &result->raw_info.stat) == 0);
 	result->raw_info.getpwuid = getpwuid(result->raw_info.stat.st_uid);
 	assert(result->raw_info.getpwuid);
+	result->raw_info.getgrgid = getgrgid(result->raw_info.stat.st_gid);
+	assert(result->raw_info.getgrgid);
 	result->info.type = define_file_type(result);
 	result->info.is_hidden = file_name[0] == '.';
 	result->info.is_valid = true;
 	return result;
 }
 
-bool valid_files(t_file_list* files_ptr)
+bool valid_files(const t_file_list* files_ptr)
 {
 	assert(files_ptr);
 	for (t_file_node* it = files_ptr->head; it; it = it->next)
@@ -57,7 +59,7 @@ bool valid_files(t_file_list* files_ptr)
 	return true;
 }
 
-char* create_path(const char* a, const char* b);
+static char* create_path(const char* a, const char* b);
 
 t_file_list* add_dir_content(const t_file_node* dir_file)
 {
@@ -80,7 +82,7 @@ t_file_list* add_dir_content(const t_file_node* dir_file)
 	return dir_files;
 }
 
-char* create_path(const char* a, const char* b)
+static char* create_path(const char* a, const char* b)
 {
 	char* temp = ft_strjoin(a, b);
 	char* result = ft_strjoin(temp, "/");

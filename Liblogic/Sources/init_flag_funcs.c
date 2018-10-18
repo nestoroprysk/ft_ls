@@ -36,6 +36,12 @@ static t_file_node* l(t_file_node* n)
 	write_char_to_display_buff(n, ' ');
 	write_user_name_to_display_buff(n);
 	write_char_to_display_buff(n, ' ');
+	write_group_name_to_display_buff(n);
+	write_char_to_display_buff(n, ' ');
+	write_nb_to_display_buff(n, n->raw_info.stat.st_size);
+	write_char_to_display_buff(n, ' ');
+	write_time_to_display_buff(n);
+	write_char_to_display_buff(n, ' ');
 	n = name(n);
 	return n;
 }

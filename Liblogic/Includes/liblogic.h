@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <sys/stat.h>
 #include <pwd.h>
+#include <grp.h>
 
 #define MAX_FILE_NAME_LEN 255
 
@@ -50,6 +51,7 @@ typedef struct s_raw_info
 {
 	struct stat stat;
 	struct passwd* getpwuid; // leak
+	struct group* getgrgid;
 } t_raw_info;
 
 typedef struct s_file_node
@@ -81,7 +83,7 @@ typedef struct s_flags
 
 bool valid_flags(int argc, const char** argv);
 t_file_list* parse_files(int argc, const char** argv);
-bool valid_files(t_file_list* files_ptr);
+bool valid_files(const t_file_list* files_ptr);
 t_flags* parse_flags(int argc, const char** argv);
 void display_file_info(t_file_node* file);
 void display_file_list(t_file_list* file_list, t_flags* flags);
@@ -107,3 +109,5 @@ void write_str_to_display_buff(t_file_node* n, const char* str, size_t len);
 void write_chmod_to_display_buff(t_file_node* n, mode_t chmod);
 void write_nb_to_display_buff(t_file_node* n, int chmod);
 void write_user_name_to_display_buff(t_file_node* n);
+void write_group_name_to_display_buff(t_file_node* n);
+void write_time_to_display_buff(t_file_node* n);
