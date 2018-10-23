@@ -5,6 +5,8 @@ extern "C"
 	#include <liblogic.h>
 }
 
+#include <cstring>
+
 using t_file_node_ptr = t_file_node*;
 
 t_file_node_ptr create(const char* name);
@@ -72,7 +74,8 @@ TEST_CASE("Basic sort", "[sort]")
 		t_file_list list;
 		list.head = node3_1;
 		list.last = node3_2;
-		sort_file_list(&list);
+		sort_file_list(&list, [](const auto* a, const auto* b)
+			{ return std::strcmp(a->info.name, b->info.name) < 0; });
 		// Is    : 3 1 4 1 5 9 2 6 5 3
 		// Should: 1 1 2 3 3 4 5 5 6 9
 		REQUIRE(strcmp(list.head->info.name, name1) == 0);

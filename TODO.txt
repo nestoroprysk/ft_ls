@@ -6,8 +6,11 @@
 - get file's data ===DONE===
 - parse flags ===DONE===
 - handle illegal flags ===DONE===
+- implement -R behaviour ===DONE===
+- investigate why sort needs <=, not just < ===DONE===
+- stat should be called only once ===DONE===
 
-- implement -R behaviour ===IN PROGRESS===
+- buff + len should be implemented as a vector
 
 - parse data on file type
 - display and finding files should be separated
@@ -22,5 +25,4 @@
 - test define_file_type
 - optimise merging path and file name
 - it is inefficient to save all the data: I should release and display it continuously
-- stat should be called only once
 - eliminate ft_strlen

@@ -81,6 +81,8 @@ typedef struct s_flags
 	map_node_type f[NB_FLAGS];
 } t_flags;
 
+typedef bool (*comparator_type)(const t_file_node*, const t_file_node*);
+
 bool valid_flags(int argc, const char** argv);
 t_file_list* parse_files(int argc, const char** argv);
 bool valid_files(const t_file_list* files_ptr);
@@ -88,7 +90,7 @@ t_flags* parse_flags(int argc, const char** argv);
 void display_file_info(t_file_node* file);
 void display_file_list(t_file_list* file_list, t_flags* flags);
 t_file_list* add_dir_content(const t_file_node* dir_file);
-void sort_file_list(t_file_list* dir_files);
+void sort_file_list(t_file_list* dir_files, comparator_type);
 t_file_list* prepare_files(t_file_list* files);
 
 t_flags* init_flag_funcs(t_flags* flags);
@@ -98,10 +100,9 @@ bool is_flag_argv(const char* str);
 char get_file_type_char(t_file_node* n);
 enum file_type define_file_type(const t_file_node* n);
 
-t_file_node* partition(t_file_node** head, t_file_node** last);
+t_file_node* partition(t_file_node** head, t_file_node** last, comparator_type f);
 t_file_list merge_file_lists(t_file_list* a, t_file_list* b);
 t_file_list init_file_list();
-bool is_bigger(t_file_node const* a, t_file_node const* b);
 t_file_node* foo(t_file_node* n);
 
 void write_char_to_display_buff(t_file_node* n, char ch);

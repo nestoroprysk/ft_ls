@@ -71,7 +71,8 @@ TEST_CASE("Partition from tutorial", "[partition]")
 	REQUIRE(strcmp(node3_2->prev->prev->prev->prev->prev->prev->prev->prev->prev->info.name, name3) == 0);
 	REQUIRE(!node3_2->prev->prev->prev->prev->prev->prev->prev->prev->prev->prev);
 	{
-		partition(&node3_1, &node3_2);
+		partition(&node3_1, &node3_2, [](const auto* a, const auto* b)
+			{ return std::strcmp(a->info.name, b->info.name) < 0; });
 		// Is    : 3 1 4 1 5 9 2 6 5 3
 		// Should: 1 1 2 3 3 4 5 9 6 5
 		REQUIRE(strcmp(node3_1->info.name, name1) == 0);
@@ -119,7 +120,8 @@ TEST_CASE("Partition from tutorial", "[partition]")
 		REQUIRE(strcmp(a->next->info.name, name2) == 0);
 		REQUIRE(strcmp(b->info.name, name2) == 0);
 		REQUIRE(strcmp(b->prev->info.name, name1) == 0);
-		partition(&a, &b);
+		partition(&a, &b, [](const auto* a, const auto* b)
+			{ return std::strcmp(a->info.name, b->info.name) < 0; });
 		REQUIRE(a->next == b);
 		REQUIRE(!a->next->next);
 		REQUIRE(b->prev == a);
@@ -146,7 +148,8 @@ TEST_CASE("Partition from tutorial", "[partition]")
 		REQUIRE(strcmp(a->next->info.name, name1) == 0);
 		REQUIRE(strcmp(b->info.name, name1) == 0);
 		REQUIRE(strcmp(b->prev->info.name, name2) == 0);
-		partition(&a, &b);
+		partition(&a, &b, [](const auto* a, const auto* b)
+			{ return std::strcmp(a->info.name, b->info.name) < 0; });
 		REQUIRE(a->next == b);
 		REQUIRE(!a->next->next);
 		REQUIRE(b->prev == a);

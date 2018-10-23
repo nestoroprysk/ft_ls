@@ -119,11 +119,6 @@ t_file_list init_file_list()
 	return result;
 }
 
-bool is_bigger(t_file_node const* a, t_file_node const* b)
-{
-	return ft_strcmp(a->info.name, b->info.name) > 0;
-}
-
 t_file_node* foo(t_file_node* n)
 {
 	assert(n);
