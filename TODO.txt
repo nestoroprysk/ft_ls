@@ -27,3 +27,7 @@
 - it is inefficient to save all the data: I should release and display it continuously
 - eliminate ft_strlen
 - separate h files
+- separate hidden and unhidden alignment
+- st_blocks
+- hidden vs unhidden (total)
+- right alignment

@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <assert.h>
 
+#define CURRENT_DIR "."
+#define PREVIOUS_DIR ".."
+
 static bool is_root_dir(mode_t type, const char* file_name);
 static bool is_dir(mode_t type, const char* file_name);
 static bool is_reg_file(mode_t type, const char* file_name);
@@ -30,7 +33,8 @@ enum file_type define_file_type(const t_file_node* n)
 static bool is_root_dir(mode_t type, const char* file_name)
 {
 	return S_ISDIR(type) &&
-		(ft_strequ(file_name, ".") || ft_strequ(file_name, ".."));
+		(ft_strequ(file_name, CURRENT_DIR) ||
+			ft_strequ(file_name, PREVIOUS_DIR));
 }
 
 static bool is_dir(mode_t type, const char* file_name)

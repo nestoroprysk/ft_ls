@@ -18,7 +18,7 @@
 void write_str_to_display_buff(t_file_node* n, const char* str, size_t len)
 {
 	assert(n && str);
-	append_string_node(&n->display_buff, new_string_node(str, len));
+	add_string(&n->display_buff, str, len);
 }
 
 void write_chmod_to_display_buff(t_file_node* n, mode_t chmod)
@@ -32,7 +32,7 @@ void write_chmod_to_display_buff(t_file_node* n, mode_t chmod)
 		result_buff[i + 1] = 
 			permission[(chmod >> (NB_CHMOD_FIELDS - i - 1)) & 1]
 				[i % NB_PERMISSION_TYPES];
-	append_string_node(&n->display_buff, new_string_node(result_buff, ft_strlen(result_buff)));
+	add_string(&n->display_buff, result_buff, ft_strlen(result_buff));
 }
 
 void write_nb_to_display_buff(t_file_node* n, int nb)
@@ -69,8 +69,8 @@ void write_time_to_display_buff(t_file_node* n)
 	write_month_to_result_buff(n, result_buff);
 	result_buff[POSITION_AFTER_MONTH] = ' ';
 	strftime(&result_buff[POSITION_AFTER_MONTH], TIME_BUFF_LEN - POSITION_AFTER_MONTH - 1,
-		"%d %H:%M", localtime(&n->raw_info.stat.st_mtime));
-	append_string_node(&n->display_buff, new_string_node(result_buff, ft_strlen(result_buff)));
+		" %d %H:%M", localtime(&n->raw_info.stat.st_mtime));
+	add_string(&n->display_buff, result_buff, ft_strlen(result_buff));
 }
 
 static void write_month_to_result_buff(const t_file_node* n, char* buff)

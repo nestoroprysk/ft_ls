@@ -18,13 +18,12 @@
 
 enum flag_type { flag_a, flag_l, flag_R, flag_r, flag_t };
 
-enum file_type { root_dir_file_type, dir_file_type, reg_file_file_type, other_file_type };
+enum file_type { current_prev_dir_file_type, dir_file_type, reg_file_file_type, other_file_type };
 
-typedef struct s_string_node
+typedef struct s_string
 {
 	char* data;
 	size_t len;
-	struct s_string_node* next;
 } t_string;
 
 typedef struct s_string_list
@@ -41,6 +40,7 @@ typedef struct s_file_info
 	bool is_valid;
 	bool is_hidden;
 	enum file_type type;
+	size_t st_blocks;
 } t_file_node_info;
 
 typedef struct s_file_list t_file_list;
@@ -69,6 +69,7 @@ typedef struct s_file_list
 	t_file_node* head;
 	t_file_node* last;
 	size_t len;
+	size_t max_elems_len[MAX_STRING_LIST_ELEMS];
 } t_file_list;
 
 typedef t_file_node* (*map_node_type)(t_file_node*);
@@ -85,7 +86,7 @@ bool valid_flags(int argc, const char** argv);
 t_file_list* parse_files(int argc, const char** argv);
 bool valid_files(const t_file_list* files_ptr);
 t_flags* parse_flags(int argc, const char** argv);
-void display_file_info(t_file_node* file);
+void display_file_info(t_file_node* n, const size_t* max_elems_len);
 void display_file_list(t_file_list* file_list, t_flags* flags);
 t_file_list* add_dir_content(const t_file_node* dir_file);
 void sort_file_list(t_file_list* dir_files, comparator_type);
@@ -110,5 +111,4 @@ void write_user_name_to_display_buff(t_file_node* n);
 void write_group_name_to_display_buff(t_file_node* n);
 void write_time_to_display_buff(t_file_node* n);
 
-void append_string_node(t_string_list* string_list_ptr, t_string* new_node);
-t_string* new_string_node(const char* data, size_t len);
+void add_string(t_string_list* string_list_ptr, const char* data, size_t len);
