@@ -26,3 +26,4 @@
 - optimise merging path and file name
 - it is inefficient to save all the data: I should release and display it continuously
 - eliminate ft_strlen
+- separate h files

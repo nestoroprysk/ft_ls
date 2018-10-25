@@ -11,11 +11,18 @@ void display_file_info(t_file_node* n)
 		{ display, foo };
 	assert(n);
 	f[n->info.is_hidden](n);
-	
 }
 
 static t_file_node* display(t_file_node* n)
 {
-	printf("%s\n", n->display_buff.data);
+	assert(n);
+	t_string_list* list_ptr = &n->display_buff;
+	for (size_t i = 0; i < list_ptr->len; ++i)
+	{
+		printf("%s", list_ptr->elems[i].data);
+		if (i != list_ptr->len - 1)
+			printf(" ");
+	}
+	printf("\n");
 	return n;
 }

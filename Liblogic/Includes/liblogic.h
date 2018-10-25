@@ -6,14 +6,6 @@
 #include <pwd.h>
 #include <grp.h>
 
-#define MAX_FILE_NAME_LEN 255
-
-#define MAX_PATH_LEN 255
-
-#define MAX_L_LEN 127
-
-#define MAX_INFO_BUFF_LEN (MAX_FILE_NAME_LEN + MAX_PATH_LEN + MAX_L_LEN)
-
 #define NB_FLAGS 5
 
 #define FLAGS_STR "alRrt"
@@ -22,18 +14,30 @@
 
 #define EITHER_OR 2
 
+#define MAX_STRING_LIST_ELEMS 8
+
 enum flag_type { flag_a, flag_l, flag_R, flag_r, flag_t };
 
 enum file_type { root_dir_file_type, dir_file_type, reg_file_file_type, other_file_type };
 
+typedef struct s_string_node
+{
+	char* data;
+	size_t len;
+	struct s_string_node* next;
+} t_string;
+
+typedef struct s_string_list
+{
+	t_string elems[MAX_STRING_LIST_ELEMS];
+	size_t len;
+} t_string_list;
+
 typedef struct s_file_info
 {
-	char name[MAX_FILE_NAME_LEN + 1];
-	size_t name_len;
-	char path[MAX_PATH_LEN + 1];
-	size_t path_len;
-	char full_name[MAX_PATH_LEN + MAX_FILE_NAME_LEN + 1];
-	size_t full_name_len;
+	t_string name;
+	t_string path;
+	t_string full_name;
 	bool is_valid;
 	bool is_hidden;
 	enum file_type type;
@@ -41,22 +45,16 @@ typedef struct s_file_info
 
 typedef struct s_file_list t_file_list;
 
-typedef struct s_display_buff
-{
-	size_t len;
-	char data[MAX_INFO_BUFF_LEN + 1];
-} t_display_buff;
-
 typedef struct s_raw_info
 {
 	struct stat stat;
-	struct passwd* getpwuid; // leak
+	struct passwd* getpwuid;
 	struct group* getgrgid;
 } t_raw_info;
 
 typedef struct s_file_node
 {
-	t_display_buff display_buff;
+	t_string_list display_buff;
 	t_file_node_info info;
 	t_raw_info raw_info;
 	struct s_file_node* prev;
@@ -105,10 +103,12 @@ t_file_list merge_file_lists(t_file_list* a, t_file_list* b);
 t_file_list init_file_list();
 t_file_node* foo(t_file_node* n);
 
-void write_char_to_display_buff(t_file_node* n, char ch);
 void write_str_to_display_buff(t_file_node* n, const char* str, size_t len);
 void write_chmod_to_display_buff(t_file_node* n, mode_t chmod);
 void write_nb_to_display_buff(t_file_node* n, int chmod);
 void write_user_name_to_display_buff(t_file_node* n);
 void write_group_name_to_display_buff(t_file_node* n);
 void write_time_to_display_buff(t_file_node* n);
+
+void append_string_node(t_string_list* string_list_ptr, t_string* new_node);
+t_string* new_string_node(const char* data, size_t len);

@@ -22,7 +22,7 @@ enum file_type define_file_type(const t_file_node* n)
 	assert(n);
 	mode_t type = n->raw_info.stat.st_mode;
 	for (size_t i = 0; i < NB_FILE_TYPES; ++i)
-		if (is_file_type[i](type, n->info.name))
+		if (is_file_type[i](type, n->info.name.data))
 			return i;
 	return other_file_type;
 }
