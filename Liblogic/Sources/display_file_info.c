@@ -26,13 +26,13 @@ static void display(t_file_node* n, const size_t* max_elems_len)
 	assert(n && max_elems_len);
 	t_string_list* list_ptr = &n->display_buff;
 	assert(list_ptr->len <= MAX_STRING_LIST_ELEMS);
+	assert(list_ptr->len > 0);
 	for (size_t i = 0; i < list_ptr->len - 1; ++i)
 	{
 		print_n_chars(COLUMN_SEPARATOR, max_elems_len[i] -
 			list_ptr->elems[i].len + (i == 0 ? 0 : INTER_COLUMN_DISTANCE));
 		printf("%s", list_ptr->elems[i].data);
 	}
-	print_n_chars(COLUMN_SEPARATOR, INTER_COLUMN_DISTANCE);
 	printf("%s\n", list_ptr->elems[list_ptr->len - 1].data);
 }
 

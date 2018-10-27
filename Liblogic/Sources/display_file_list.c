@@ -34,8 +34,9 @@ static void calculate_max_elems_len(t_file_list* file_list)
 {
 	for (t_file_node* it = file_list->head; it; it = it->next)
 		for (size_t i = 0; i < it->display_buff.len; ++i)
-			if (it->display_buff.elems[i].len > file_list->max_elems_len[i])
-				file_list->max_elems_len[i] = it->display_buff.elems[i].len;
+			if (it->display_buff.elems[i].len > file_list->max_elems_len[i] &&
+				!it->info.is_hidden)
+					file_list->max_elems_len[i] = it->display_buff.elems[i].len;
 }
 
 static void display_dir_blocks(const t_file_node* n)
