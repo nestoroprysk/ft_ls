@@ -58,7 +58,7 @@ bool valid_files(const t_file_list* files_ptr)
 
 static char* create_path(const char* a, const char* b);
 
-t_file_list* add_dir_content(const t_file_node* dir_file)
+t_file_list* add_dir_content(t_file_node* dir_file)
 {
 	assert(dir_file);
 	DIR* dir_ptr = opendir(
@@ -72,8 +72,10 @@ t_file_list* add_dir_content(const t_file_node* dir_file)
 		char* path = create_path(dir_file->info.path.data,
 			dir_file->info.name.data);
 		assert(path);
-		append_file_node(dir_files,
-			new_file_node(dir_info->d_name, path));
+		t_file_node* new_node = new_file_node(dir_info->d_name, path);
+		new_node->info.from_dir = dir_file;
+		append_file_node(dir_files, new_node);
+		dir_file->info.total += new_node->raw_info.stat.st_blocks;
 		free(path);
 	}
 	closedir(dir_ptr);

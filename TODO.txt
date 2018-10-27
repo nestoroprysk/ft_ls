@@ -9,25 +9,23 @@
 - implement -R behaviour ===DONE===
 - investigate why sort needs <=, not just < ===DONE===
 - stat should be called only once ===DONE===
-
-- buff + len should be implemented as a vector
+- right alignment ===DONE===
+- buff + len should be implemented as a vector ===DONE===
+- hidden vs unhidden total ===DONE===
+- correct total ===DONE===
+- save path to file ===DONE===
+- pointer to tail ===DONE===
+- effective -R ===DONE===
+- try using more pure functions ===DONE===
+- consider ft_meft_memalloc while allocating flags ===DONE===
+- eliminate ft_strlen ===DONE===
+- st_blocks ===DONE===
+- separate hidden and unhidden alignment ===DONE===
 
 - parse data on file type
 - display and finding files should be separated
 - implement a buffer for optimized write() calls
-- fill_file_info flags may become a pointer
-- save path to file
-- pointer to tail
-- effective -R
-- try using more pure functions
-- make files_left inline
-- consider ft_meft_memalloc while allocating flags
 - test define_file_type
 - optimise merging path and file name
 - it is inefficient to save all the data: I should release and display it continuously
-- eliminate ft_strlen
 - separate h files
-- separate hidden and unhidden alignment
-- st_blocks
-- hidden vs unhidden (total)
-- right alignment

@@ -17,7 +17,7 @@ void display_file_info(t_file_node* n, const size_t* max_elems_len)
 	static mod_display_node_type f[EITHER_OR] =
 		{ display, bar };
 	assert(n && max_elems_len);
-	f[n->info.is_hidden](n, max_elems_len);
+	f[n->info.is_hidden || !n->info.from_dir](n, max_elems_len);
 }
 
 static void display(t_file_node* n, const size_t* max_elems_len)

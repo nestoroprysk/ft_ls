@@ -3,14 +3,15 @@
 #include <stdio.h>
 #include <assert.h>
 
-static void display_dir_blocks(const t_file_node* n);
+static void display_dir_total(const t_file_node* n);
 static void call_flag_funcs(t_file_node* n, t_flags* flags);
 static void calculate_max_elems_len(t_file_list* file_list);
 
 void display_file_list(t_file_list* file_list, t_flags* flags)
 {
 	assert(file_list && flags);
-	display_dir_blocks(file_list->head);
+	if (flags->state[flag_l] && file_list->head->info.from_dir)
+		display_dir_total(file_list->head);
 	for (t_file_node* it = file_list->head; it; it = it->next)
 		call_flag_funcs(it, flags);
 	calculate_max_elems_len(file_list);
@@ -39,9 +40,9 @@ static void calculate_max_elems_len(t_file_list* file_list)
 					file_list->max_elems_len[i] = it->display_buff.elems[i].len;
 }
 
-static void display_dir_blocks(const t_file_node* n)
+static void display_dir_total(const t_file_node* n)
 {
 	assert(n && (n->info.type == current_prev_dir_file_type ||
 		n->info.type == dir_file_type));
-	printf("total %zu\n", n->info.st_blocks);
+	printf("total %zu\n", n->info.from_dir->info.total);
 }
