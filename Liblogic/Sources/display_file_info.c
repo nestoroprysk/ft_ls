@@ -4,7 +4,6 @@
 #include <assert.h>
 
 #define MAX_PRINT_N_CHARS_BUFF_LEN 128
-#define INTER_COLUMN_DISTANCE 2
 #define COLUMN_SEPARATOR ' '
 
 typedef void (*mod_display_node_type)(t_file_node* n, const size_t* max_elems_len);
@@ -23,17 +22,20 @@ void display_file_info(t_file_node* n, const size_t* max_elems_len)
 
 static void display(t_file_node* n, const size_t* max_elems_len)
 {
+	static size_t separators[MAX_STRING_LIST_ELEMS] =
+		{ 2, 1, 2, 2, 1, 1, 1, 1 };
 	assert(n && max_elems_len);
 	t_string_list* list_ptr = &n->display_buff;
 	assert(list_ptr->len <= MAX_STRING_LIST_ELEMS);
-	assert(list_ptr->len > 0);
-	for (size_t i = 0; i < list_ptr->len - 1; ++i)
+	for (size_t i = 0; i < list_ptr->len; ++i)
 	{
-		print_n_chars(COLUMN_SEPARATOR, max_elems_len[i] -
-			list_ptr->elems[i].len + (i == 0 ? 0 : INTER_COLUMN_DISTANCE));
 		printf("%s", list_ptr->elems[i].data);
+		if (i < list_ptr->len - 1)
+			print_n_chars(COLUMN_SEPARATOR, (i == list_ptr->len - 2) 
+				? 1 : max_elems_len[i + 1] -
+					list_ptr->elems[i + 1].len + separators[i]);
 	}
-	printf("%s\n", list_ptr->elems[list_ptr->len - 1].data);
+	printf("\n");
 }
 
 static void bar(t_file_node* n, const size_t* max_elems_len)
