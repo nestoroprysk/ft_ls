@@ -64,21 +64,21 @@ t_file_list* add_dir_content(t_file_node* dir_file)
 	free(temp);
 	if (!dir_ptr) return NULL;
 	struct dirent* dir_info;
-	t_file_list* dir_files =
+	t_file_list* result =
 		(t_file_list*)ft_memalloc(sizeof(t_file_list));
+	result->name = ft_strdup(dir_file->info.full_name.data);
 	while ((dir_info = readdir(dir_ptr)) != NULL)
 	{
 		char* path = create_path(dir_file->info.path.data,
 			dir_file->info.name.data);
 		assert(path);
 		t_file_node* new_node = new_file_node(dir_info->d_name, path);
-		new_node->info.from_dir = dir_file;
-		append_file_node(dir_files, new_node);
-		dir_file->info.total += new_node->raw_info.stat.st_blocks;
+		append_file_node(result, new_node);
+		result->total += new_node->raw_info.stat.st_blocks;
 		free(path);
 	}
 	closedir(dir_ptr);
-	return dir_files;
+	return result;
 }
 
 static char* create_path(const char* a, const char* b)

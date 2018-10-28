@@ -41,7 +41,6 @@ typedef struct s_file_info
 	bool is_hidden;
 	enum file_type type;
 	size_t total;
-	t_file_node* from_dir;
 } t_file_node_info;
 
 typedef struct s_file_list t_file_list;
@@ -69,6 +68,8 @@ typedef struct s_file_list
 	t_file_node* last;
 	size_t len;
 	size_t max_elems_len[MAX_STRING_LIST_ELEMS];
+	size_t total;
+	char* name;
 } t_file_list;
 
 typedef t_file_node* (*map_node_type)(t_file_node*);
@@ -85,7 +86,6 @@ bool valid_flags(int argc, const char** argv);
 t_file_list* parse_files(int argc, const char** argv);
 bool valid_files(const t_file_list* files_ptr);
 t_flags* parse_flags(int argc, const char** argv);
-t_file_list* prepare_files(t_file_list* files);
 void display_file_info(t_file_node* n, const size_t* max_elems_len);
 void display_file_list(t_file_list* file_list, t_flags* flags);
 t_file_list* add_dir_content(t_file_node* dir_file);

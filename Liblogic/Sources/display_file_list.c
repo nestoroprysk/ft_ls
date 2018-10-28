@@ -3,15 +3,20 @@
 #include <stdio.h>
 #include <assert.h>
 
-static void display_dir_total(const t_file_node* n);
+static void display_dir_total(const t_file_list* file_list);
 static void call_flag_funcs(t_file_node* n, t_flags* flags);
 static void calculate_max_elems_len(t_file_list* file_list);
 
 void display_file_list(t_file_list* file_list, t_flags* flags)
 {
+	static bool first_entry = true;
 	assert(file_list && flags);
-	if (flags->state[flag_l] && file_list->head->info.from_dir)
-		display_dir_total(file_list->head);
+	if (first_entry)
+		first_entry = false;
+	else
+		printf("\n%s:\n", file_list->name);
+	
+	display_dir_total(file_list);
 	for (t_file_node* it = file_list->head; it; it = it->next)
 		call_flag_funcs(it, flags);
 	calculate_max_elems_len(file_list);
@@ -41,9 +46,7 @@ static void calculate_max_elems_len(t_file_list* file_list)
 					file_list->max_elems_len[i] = it->display_buff.elems[i].len;
 }
 
-static void display_dir_total(const t_file_node* n)
+static void display_dir_total(const t_file_list* file_list)
 {
-	if (!(n && n->info.is_valid && (n->info.type == current_prev_dir_file_type ||
-		n->info.type == dir_file_type))) return;
-	printf("total %zu\n", n->info.from_dir->info.total);
+	printf("total %zu\n", file_list->total);
 }
