@@ -38,12 +38,10 @@ t_file_node* new_file_node(const char* file_name, const char* path)
 	assert(result->info.path.data = ft_strdup(path));
 	result->info.full_name.len = result->info.path.len + result->info.name.len;
 	assert(result->info.full_name.data = ft_strjoin(path, file_name));
-	assert(stat(result->info.full_name.data, &result->raw_info.stat) == 0);
-	assert(result->raw_info.getpwuid = getpwuid(result->raw_info.stat.st_uid));
-	assert(result->raw_info.getgrgid = getgrgid(result->raw_info.stat.st_gid));
+	result->info.is_valid = stat(result->info.full_name.data, &result->raw_info.stat) == 0;
+	if (!result->info.is_valid) return result;
 	result->info.type = define_file_type(result);
 	result->info.is_hidden = file_name[0] == HIDDEN_FILE_PREFIX;
-	result->info.is_valid = true;
 	return result;
 }
 
@@ -61,9 +59,10 @@ static char* create_path(const char* a, const char* b);
 t_file_list* add_dir_content(t_file_node* dir_file)
 {
 	assert(dir_file);
-	DIR* dir_ptr = opendir(
-		create_path(dir_file->info.path.data, dir_file->info.name.data));
-	assert(dir_ptr);
+	char* temp = create_path(dir_file->info.path.data, dir_file->info.name.data);
+	DIR* dir_ptr = opendir(temp);
+	free(temp);
+	if (!dir_ptr) return NULL;
 	struct dirent* dir_info;
 	t_file_list* dir_files =
 		(t_file_list*)ft_memalloc(sizeof(t_file_list));

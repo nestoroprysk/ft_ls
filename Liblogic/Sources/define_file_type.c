@@ -16,6 +16,7 @@ typedef bool (*is_file_type_func)(mode_t s, const char* file_name);
 char get_file_type_char(t_file_node* n)
 {
 	static char file_type_char[NB_FILE_TYPES] = { 'd', 'd', '-', '?' };
+	assert(n && n->info.is_valid);
 	return file_type_char[define_file_type(n)];
 }
 

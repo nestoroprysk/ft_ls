@@ -4,6 +4,8 @@
 #include <dirent.h>
 #include <assert.h>
 #include <time.h>
+#include <pwd.h>
+#include <grp.h>
 
 #define NB_FILE_TYPE_FIELDS 1
 #define NB_PERMISSION_TYPES 3
@@ -46,18 +48,19 @@ void write_nb_to_display_buff(t_file_node* n, int nb)
 
 void write_user_name_to_display_buff(t_file_node* n)
 {
-	assert(n && n->raw_info.getpwuid);
-	const char* user_name = n->raw_info.getpwuid->pw_name;
-	assert(user_name);
-	write_str_to_display_buff(n, user_name, ft_strlen(user_name));
+
+	assert(n);
+	struct passwd* a = getpwuid(n->raw_info.stat.st_uid);
+	assert(a);
+	write_str_to_display_buff(n, a->pw_name, ft_strlen(a->pw_name));
 }
 
 void write_group_name_to_display_buff(t_file_node* n)
 {
-	assert(n &&  n->raw_info.getgrgid);
-	const char* group_name = n->raw_info.getgrgid->gr_name;
-	assert(group_name);
-	write_str_to_display_buff(n, group_name, ft_strlen(group_name));
+	assert(n);
+	struct group* g = getgrgid(n->raw_info.stat.st_gid);
+	assert(g);
+	write_str_to_display_buff(n, g->gr_name, ft_strlen(g->gr_name));
 }
 
 static void write_month_to_result_buff(const t_file_node* n, char* buff);

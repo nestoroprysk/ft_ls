@@ -3,8 +3,6 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <sys/stat.h>
-#include <pwd.h>
-#include <grp.h>
 
 #define NB_FLAGS 5
 
@@ -51,8 +49,6 @@ typedef struct s_file_list t_file_list;
 typedef struct s_raw_info
 {
 	struct stat stat;
-	struct passwd* getpwuid;
-	struct group* getgrgid;
 } t_raw_info;
 
 typedef struct s_file_node

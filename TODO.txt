@@ -22,6 +22,8 @@
 - st_blocks ===DONE===
 - separate hidden and unhidden alignment ===DONE===
 
+- -R displays too many files ===IN PROGRESS===
+
 - parse data on file type
 - display and finding files should be separated
 - implement a buffer for optimized write() calls
