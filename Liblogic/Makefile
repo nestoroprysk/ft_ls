@@ -7,7 +7,7 @@ INC_NAME = liblogic.h
 INC = $(addprefix $(INC_DIR), $(INC_NAME))
 
 SRC_DIR = Sources/
-SRC_NAME =  parse_files.c parse_flags.c\
+SRC_NAME =  parse_files.c parse_flags.c free.c\
 			display_file_info.c define_file_type.c\
 			manipulate_file_list.c display_file_list.c\
 			sort_file_list.c init_flag_funcs.c prepare_files.c\
