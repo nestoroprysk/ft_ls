@@ -31,3 +31,5 @@
 - optimise merging path and file name
 - it is inefficient to save all the data: I should release and display it continuously
 - separate h files
+- ls -l TODO.txt -> TODO.txt is not displayed
+- the name of the directory should be displayed iff we display content of more then one directory (iff there are two or more input directories or -R has directories to go into)
