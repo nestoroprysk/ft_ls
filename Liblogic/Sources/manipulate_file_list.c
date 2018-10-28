@@ -56,7 +56,7 @@ bool valid_files(const t_file_list* files_ptr)
 
 static char* create_path(const char* a, const char* b);
 
-t_file_list* add_dir_content(t_file_node* dir_file)
+t_file_list* add_dir_content(const t_file_node* dir_file)
 {
 	assert(dir_file);
 	char* temp = create_path(dir_file->info.path.data, dir_file->info.name.data);

@@ -83,15 +83,15 @@ typedef struct s_flags
 typedef bool (*comparator_type)(const t_file_node*, const t_file_node*);
 
 bool valid_flags(int argc, const char** argv);
-t_file_list* parse_files(int argc, const char** argv);
+void display_input_files(int argc, const char** argv, const t_flags* flags);
 bool valid_files(const t_file_list* files_ptr);
-t_flags* parse_flags(int argc, const char** argv);
+t_flags parse_flags(int argc, const char** argv);
 void display_file_info(t_file_node* n, const size_t* max_elems_len);
-void display_file_list(t_file_list* file_list, t_flags* flags);
-t_file_list* add_dir_content(t_file_node* dir_file);
+void display_file_list(t_file_list* file_list, const t_flags* flags);
+t_file_list* add_dir_content(const t_file_node* dir_file);
 void sort_file_list(t_file_list* dir_files, comparator_type);
 
-t_flags* init_flag_funcs(t_flags* flags);
+void init_flag_funcs(t_flags* flags);
 void append_file_node(t_file_list* files_ptr, t_file_node* newNode);
 t_file_node* new_file_node(const char* file_name, const char* path);
 bool is_flag_argv(const char* str);

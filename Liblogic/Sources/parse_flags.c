@@ -13,14 +13,14 @@ bool valid_flags(int argc, const char** argv)
 	return true;
 }
 
-t_flags* parse_flags(int argc, const char** argv)
+t_flags parse_flags(int argc, const char** argv)
 {
-	t_flags* result = (t_flags*)ft_memalloc(sizeof(t_flags));
+	t_flags result; ft_bzero(&result, sizeof(result));
 	for (int i = 1; i < argc; i++)
 		if (is_flag_argv(argv[i]))
 			for (size_t j = 0; j < NB_FLAGS; ++j)
 				if (ft_strchr(argv[i], FLAGS_STR[j]))
-					result->state[j] = true;
+					result.state[j] = true;
 	return result;
 }
 

@@ -9,14 +9,13 @@ static t_file_node* l(t_file_node* n);
 static t_file_node* R(t_file_node* n);
 static t_file_node* name(t_file_node* n);
 
-t_flags* init_flag_funcs(t_flags* flags)
+void init_flag_funcs(t_flags* flags)
 {
 	static map_node_type f[EITHER_OR][NB_FLAGS] =
 		{{ foo, name, foo, foo, foo },
 		{ a, l, R, foo, foo }};
 	for (size_t i = 0; i < NB_FLAGS; ++i)
 		flags->f[i] = f[flags->state[i]][i];
-	return flags;
 }
 
 static t_file_node* a(t_file_node* n)
