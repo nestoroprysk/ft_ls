@@ -47,7 +47,7 @@ static t_file_node* R(t_file_node* n, const t_flags* flags)
 		{{ foo, final_R, foo, foo },
 		{ foo, foo, foo, foo }};
 	assert(n && n->info.is_valid && flags);
-	n = f[n->info.is_hidden || n->nested_file_list][n->info.type](n, flags);
+	n = f[n->info.is_hidden][n->info.type](n, flags);
 	return n;
 }
 

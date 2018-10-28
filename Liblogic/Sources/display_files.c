@@ -22,7 +22,7 @@ void display_input_files(int argc, const char** argv, const t_flags* flags)
 				display_directory(new_node, flags);
 			else
 				display_file(new_node, flags);
-			free(new_node);
+			delete_file_node(new_node);
 		}
 	}
 	if (!file_found) display_current_directory(flags);
@@ -41,7 +41,7 @@ static void display_current_directory(const t_flags* flags)
 	assert(flags);
 	t_file_node* new_node = new_file_node(file_name, file_path);
 	display_directory(new_node, flags);
-	free(new_node);
+	delete_file_node(new_node);
 }
 
 static void display_directory(const t_file_node* file_node, const t_flags* flags)

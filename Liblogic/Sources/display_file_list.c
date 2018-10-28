@@ -21,9 +21,6 @@ void display_file_list(t_file_list* file_list, const t_flags* flags)
 	calculate_max_elems_len(file_list);
 	for (t_file_node* it = file_list->head; it; it = it->next)
 		display_file_info(it, file_list->max_elems_len);
-	for (t_file_node* it = file_list->head; it; it = it->next)
-		if (it->nested_file_list)
-			display_file_list(it->nested_file_list, flags);
 }
 
 static void call_flag_funcs(t_file_node* n, const t_flags* flags)

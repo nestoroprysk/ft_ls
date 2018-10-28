@@ -21,10 +21,10 @@
 - eliminate ft_strlen ===DONE===
 - st_blocks ===DONE===
 - separate hidden and unhidden alignment ===DONE===
+- free ===DONE===
 
-- -R displays too many files ===IN PROGRESS===
+- -R displays 20x files on ~ ===IN PROGRESS===
 
-- free
 - parse data on file type
 - display and finding files should be separated
 - implement a buffer for optimized write() calls

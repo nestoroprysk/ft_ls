@@ -57,7 +57,6 @@ typedef struct s_file_node
 	t_raw_info raw_info;
 	struct s_file_node* prev;
 	struct s_file_node* next;
-	t_file_list* nested_file_list;
 } t_file_node;
 
 typedef struct s_flags t_flags;
@@ -112,3 +111,4 @@ void write_time_to_display_buff(t_file_node* n);
 void add_string(t_string_list* string_list_ptr, const char* data, size_t len);
 
 void delete_file_list(t_file_list** file_list_ptr);
+void delete_file_node(t_file_node* n);
