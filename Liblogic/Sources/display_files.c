@@ -49,6 +49,7 @@ static void display_directory(const t_file_node* file_node, const t_flags* flags
 	assert(file_node && flags);
 	t_file_list* directory = add_dir_content(file_node);
 	display_file_list(directory, flags);
+	delete_file_list(&directory);
 }
 
 static void display_file(const t_file_node* new_node, const t_flags* flags)

@@ -119,9 +119,3 @@ t_file_list init_file_list()
 	result.len = 0;
 	return result;
 }
-
-t_file_node* foo(t_file_node* n)
-{
-	assert(n);
-	return n;
-}

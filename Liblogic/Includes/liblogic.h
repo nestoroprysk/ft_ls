@@ -72,7 +72,7 @@ typedef struct s_file_list
 	char* name;
 } t_file_list;
 
-typedef t_file_node* (*map_node_type)(t_file_node*);
+typedef t_file_node* (*map_node_type)(t_file_node*, const t_flags*);
 
 typedef struct s_flags
 {
@@ -101,7 +101,6 @@ enum file_type define_file_type(const t_file_node* n);
 t_file_node* partition(t_file_node** head, t_file_node** last, comparator_type f);
 t_file_list merge_file_lists(t_file_list* a, t_file_list* b);
 t_file_list init_file_list();
-t_file_node* foo(t_file_node* n);
 
 void write_str_to_display_buff(t_file_node* n, const char* str, size_t len);
 void write_chmod_to_display_buff(t_file_node* n, mode_t chmod);
@@ -112,4 +111,4 @@ void write_time_to_display_buff(t_file_node* n);
 
 void add_string(t_string_list* string_list_ptr, const char* data, size_t len);
 
-void free_file_node(t_file_node** n_ptr);
+void delete_file_list(t_file_list** file_list_ptr);

@@ -4,9 +4,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-void free_file_node(t_file_node** n_ptr)
+void delete_file_list(t_file_list** file_list_ptr)
 {
-	t_file_node* n = *n_ptr;
-	free(n);
-	*n_ptr = NULL;
+	assert(file_list_ptr && *file_list_ptr);
 }

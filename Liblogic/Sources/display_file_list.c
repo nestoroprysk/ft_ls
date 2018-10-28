@@ -33,7 +33,7 @@ static void call_flag_funcs(t_file_node* n, const t_flags* flags)
 	for (size_t i = 0; i < NB_FLAGS; ++i)
 		assert(flags->f[i]);
 	for (size_t i = 0; i < NB_FLAGS; ++i)
-		flags->f[i](n);
+		flags->f[i](n, flags);
 }
 
 static void calculate_max_elems_len(t_file_list* file_list)
