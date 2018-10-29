@@ -38,7 +38,7 @@ t_file_node* new_file_node(const char* file_name, const char* path)
 	assert(result->info.path.data = ft_strdup(path));
 	result->info.full_name.len = result->info.path.len + result->info.name.len;
 	assert(result->info.full_name.data = ft_strjoin(path, file_name));
-	result->info.is_valid = stat(result->info.full_name.data, &result->raw_info.stat) == 0;
+	result->info.is_valid = lstat(result->info.full_name.data, &result->raw_info.stat) == 0;
 	if (!result->info.is_valid) return result;
 	result->info.type = define_file_type(result);
 	result->info.is_hidden = file_name[0] == HIDDEN_FILE_PREFIX;

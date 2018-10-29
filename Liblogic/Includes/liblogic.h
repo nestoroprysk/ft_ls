@@ -8,7 +8,7 @@
 
 #define FLAGS_STR "alrtR"
 
-#define NB_FILE_TYPES 4
+#define NB_FILE_TYPES 5
 
 #define EITHER_OR 2
 
