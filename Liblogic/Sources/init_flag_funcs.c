@@ -14,7 +14,7 @@ void init_flag_funcs(t_flags* flags)
 {
 	static map_node_type f[EITHER_OR][NB_FLAGS] =
 		{{ foo, name, foo, foo, foo },
-		{ a, l, R, foo, foo }};
+		{ a, l, foo, foo, R }};
 	for (size_t i = 0; i < NB_FLAGS; ++i)
 		flags->f[i] = f[flags->state[i]][i];
 }

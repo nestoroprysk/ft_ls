@@ -19,7 +19,7 @@ void sort_file_list(t_file_list* dir_files, comparator_type f)
 
 static void sort(t_file_node** head_ptr, t_file_node** last_ptr, comparator_type f)
 {
-	assert(head_ptr && last_ptr && *head_ptr && *last_ptr && f);
+	if (!(head_ptr && last_ptr && *head_ptr && *last_ptr && f)) return;
 	if (*head_ptr == *last_ptr) return;
 	if ((*head_ptr)->next == *last_ptr)
 	{

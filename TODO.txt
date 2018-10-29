@@ -24,6 +24,7 @@
 - free ===DONE===
 
 - -R displays 20x files on ~ ===IN PROGRESS===
+- my ls visits links -> their ls - doesn't ===IN PROGRESS===
 
 - parse data on file type
 - display and finding files should be separated

@@ -6,7 +6,7 @@
 
 #define NB_FLAGS 5
 
-#define FLAGS_STR "alRrt"
+#define FLAGS_STR "alrtR"
 
 #define NB_FILE_TYPES 4
 
@@ -14,7 +14,7 @@
 
 #define MAX_STRING_LIST_ELEMS 8
 
-enum flag_type { flag_a, flag_l, flag_R, flag_r, flag_t };
+enum flag_type { flag_a, flag_l, flag_r, flag_t, flag_R };
 
 enum file_type { current_prev_dir_file_type, dir_file_type, reg_file_file_type, other_file_type };
 
