@@ -63,26 +63,15 @@ void write_group_name_to_display_buff(t_file_node* n)
 	write_str_to_display_buff(n, g->gr_name, ft_strlen(g->gr_name));
 }
 
-static void write_month_to_result_buff(const t_file_node* n, char* buff);
-
 void write_time_to_display_buff(t_file_node* n)
 {
 	assert(n);
-	char result_buff[TIME_BUFF_LEN]; ft_bzero(result_buff, TIME_BUFF_LEN);
-	write_month_to_result_buff(n, result_buff);
-	result_buff[POSITION_AFTER_MONTH] = ' ';
-	strftime(&result_buff[POSITION_AFTER_MONTH], TIME_BUFF_LEN - POSITION_AFTER_MONTH - 1,
-		" %d %H:%M", localtime(&n->raw_info.stat.st_mtime));
-	add_string(&n->display_buff, result_buff, ft_strlen(result_buff));
-}
-
-static void write_month_to_result_buff(const t_file_node* n, char* buff)
-{
-	static char* months[NB_MONTHS] = { "Jan", "Fab", "Mar", "Apr", "May",
-		"Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
-	assert(buff);
-	char temp[MONTH_BUFF_LEN]; ft_bzero(temp, MONTH_BUFF_LEN);
-	strftime(temp, MONTH_BUFF_LEN - 1, "%m", localtime(&n->raw_info.stat.st_mtime));
-	const int month_nb = ft_atoi(temp) - 1;
-	ft_strcpy(buff, months[month_nb]);
+	char* time = ctime(&n->raw_info.stat.st_mtime);
+	assert(time);
+	const size_t len = ft_strlen(time);
+	const size_t tail = 9;
+	assert(len > tail);
+	time[len - tail] = '\0';
+	const size_t head = 4;
+	add_string(&n->display_buff, &time[head], len - tail);
 }

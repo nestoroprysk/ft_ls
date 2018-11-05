@@ -62,6 +62,7 @@ static t_file_node* final_R(t_file_node* n, const t_flags* flags)
 {
 	assert(n && n->info.is_valid && flags);
 	t_file_list* file_list = add_dir_content(n);
+	if (!file_list) return NULL;
 	display_file_list(file_list, flags);
 	delete_file_list(&file_list);
 	return n;
