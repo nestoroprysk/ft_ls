@@ -43,11 +43,9 @@ static t_file_node* final_R(t_file_node* n, const t_flags* flags);
 
 static t_file_node* R(t_file_node* n, const t_flags* flags)
 {
-	static map_node_type f[EITHER_OR][NB_FILE_TYPES] =
-		{{ foo, final_R, foo, foo },
-		{ foo, foo, foo, foo }};
 	assert(n && n->info.is_valid && flags);
-	n = f[n->info.is_hidden][n->info.type](n, flags);
+	if (!n->info.is_hidden && n->info.type == dir_file_type)
+		final_R(n, flags);
 	return n;
 }
 
@@ -55,6 +53,14 @@ static t_file_node* name(t_file_node* n, const t_flags* flags)
 {
 	assert(n && n->info.is_valid && flags);
 	write_str_to_display_buff(n, n->info.name.data, n->info.name.len);
+	if (n->info.type == symbolic_link_file_type)
+	{
+		const char* link_indicator = " -> ";
+		concat_to_last_string(&n->display_buff, link_indicator,
+			ft_strlen(link_indicator));
+		// TODO: add linked file
+	}
+	
 	return n;
 }
 

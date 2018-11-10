@@ -8,15 +8,14 @@
 
 #define FLAGS_STR "alrtR"
 
-#define NB_FILE_TYPES 5
-
 #define EITHER_OR 2
 
 #define MAX_STRING_LIST_ELEMS 8
 
 enum flag_type { flag_a, flag_l, flag_r, flag_t, flag_R };
 
-enum file_type { current_prev_dir_file_type, dir_file_type, reg_file_file_type, other_file_type };
+enum file_type { current_prev_dir_file_type, dir_file_type, reg_file_file_type, symbolic_link_file_type,
+	chr_file_type, blk_file_type, sock_file_type, fifo_file_type, other_file_type };
 
 typedef struct s_file_node t_file_node;
 
@@ -109,6 +108,7 @@ void write_group_name_to_display_buff(t_file_node* n);
 void write_time_to_display_buff(t_file_node* n);
 
 void add_string(t_string_list* string_list_ptr, const char* data, size_t len);
+void concat_to_last_string(t_string_list* string_list_ptr, const char* data, size_t len);
 
 void delete_file_list(t_file_list** file_list_ptr);
 void delete_file_node(t_file_node* n);

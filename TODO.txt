@@ -22,11 +22,12 @@
 - st_blocks ===DONE===
 - separate hidden and unhidden alignment ===DONE===
 - free ===DONE===
+- -R displays 20x files on ~ ===DONE===
+- my ls visits links -> their ls - doesn't ===DONE===
+- parse data on file type ===DONE===
 
-- -R displays 20x files on ~ ===IN PROGRESS===
-- my ls visits links -> their ls - doesn't ===IN PROGRESS===
+- display -> ===IN PROGRESS===
 
-- parse data on file type
 - display and finding files should be separated
 - implement a buffer for optimized write() calls
 - test define_file_type
@@ -35,3 +36,4 @@
 - separate h files
 - ls -l TODO.txt -> TODO.txt is not displayed
 - the name of the directory should be displayed iff we display content of more then one directory (iff there are two or more input directories or -R has directories to go into)
+- ls -lR /dev
