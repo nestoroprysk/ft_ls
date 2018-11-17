@@ -6,6 +6,7 @@
 #include <time.h>
 #include <pwd.h>
 #include <grp.h>
+#include <unistd.h>
 
 #define NB_FILE_TYPE_FIELDS 1
 #define NB_PERMISSION_TYPES 3
@@ -16,6 +17,8 @@
 #define TIME_BUFF_LEN 24
 #define POSITION_AFTER_MONTH 3
 #define MONTH_BUFF_LEN 3
+#define BUFF_LEN 128
+#define ERROR_VALUE -1
 
 void write_str_to_display_buff(t_file_node* n, const char* str, size_t len)
 {
@@ -74,4 +77,11 @@ void write_time_to_display_buff(t_file_node* n)
 	time[len - tail] = '\0';
 	const size_t head = 4;
 	add_string(&n->display_buff, &time[head], len - tail);
+}
+
+void write_linked_file_name_to_buff(t_file_node* n)
+{
+	char buff[BUFF_LEN]; ft_bzero(buff, BUFF_LEN);
+	assert(readlink(n->info.full_name.data, buff, BUFF_LEN) != ERROR_VALUE);
+	concat_to_last_string(&n->display_buff, buff, ft_strlen(buff));
 }

@@ -58,7 +58,7 @@ static t_file_node* name(t_file_node* n, const t_flags* flags)
 		const char* link_indicator = " -> ";
 		concat_to_last_string(&n->display_buff, link_indicator,
 			ft_strlen(link_indicator));
-		// TODO: add linked file
+		write_linked_file_name_to_buff(n);
 	}
 	
 	return n;

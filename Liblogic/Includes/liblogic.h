@@ -106,6 +106,7 @@ void write_nb_to_display_buff(t_file_node* n, int chmod);
 void write_user_name_to_display_buff(t_file_node* n);
 void write_group_name_to_display_buff(t_file_node* n);
 void write_time_to_display_buff(t_file_node* n);
+void write_linked_file_name_to_buff(t_file_node* n);
 
 void add_string(t_string_list* string_list_ptr, const char* data, size_t len);
 void concat_to_last_string(t_string_list* string_list_ptr, const char* data, size_t len);
